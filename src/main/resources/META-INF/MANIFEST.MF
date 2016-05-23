@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-SymbolicName: athento-nx-ui
+Bundle-Version: 1.1.0
+Bundle-Name: Athento NX User Interface
+Require-Bundle: org.nuxeo.runtime
+Bundle-ManifestVersion: 2
+Bundle-Vendor: Athento
+Nuxeo-Component: OSGI-INF/Document-Model/Schemas/schemas-contrib.xml,
+ OSGI-INF/Document-Model/Documents/doctype-contrib.xml,
+ OSGI-INF/Listing-Views/Form-layouts/layouts-contrib.xml,
+ OSGI-INF/ui-configuration-framework.xml
+Created-By: Athento

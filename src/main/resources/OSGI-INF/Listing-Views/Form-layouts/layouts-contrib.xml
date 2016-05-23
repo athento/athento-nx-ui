@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Generated with Athento Rhombus at 2016-05-19T16:13:32Z -->
+<component name="org.athento.athento-nx-ui.LayoutsContrib"
+	version="1.0.0">
+	
+	<require>org.nuxeo.runtime.started</require>
+	
+	<extension target="org.nuxeo.ecm.platform.forms.layout.WebLayoutManager"
+		point="layouts">
+
+	</extension>
+	
+</component>	
