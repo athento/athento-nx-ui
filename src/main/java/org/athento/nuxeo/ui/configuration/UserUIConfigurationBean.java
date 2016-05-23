@@ -15,6 +15,8 @@ import org.nuxeo.runtime.api.Framework;
 
 import java.io.Serializable;
 import java.security.Principal;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Set;
 
 import static org.jboss.seam.ScopeType.SESSION;
@@ -27,10 +29,14 @@ import static org.jboss.seam.ScopeType.STATELESS;
 @Scope(SESSION)
 public class UserUIConfigurationBean implements UserUIConfigurationAction, Serializable {
 
-    /** Log. */
+    /**
+     * Log.
+     */
     private static final Log LOG = LogFactory.getLog(UserUIConfigurationBean.class);
 
-    /** Document manager. */
+    /**
+     * Document manager.
+     */
     @In(create = true, required = false)
     protected transient CoreSession documentManager;
 
@@ -45,13 +51,14 @@ public class UserUIConfigurationBean implements UserUIConfigurationAction, Seria
     /**
      * Destroy.
      */
-    @Observer("contentViewRefresh")
+    @Observer("contentViewColumnsChanged")
     public void updateContentViewsConfiguration() {
         ContentViewService contentViewService = Framework.getService(ContentViewService.class);
         Set<String> contentViewNames = contentViewService.getContentViewNames();
         for (String contentViewName : contentViewNames) {
             ContentView contentView = contentViewActions.getContentView(contentViewName);
-            if (contentView.getCurrentResultLayoutColumns() != null) {
+            List<String> columns = contentView.getCurrentResultLayoutColumns();
+            if (columns != null && !columns.isEmpty())  {
                 saveContentViewConfiguration(contentViewName,
                         contentView.getCurrentResultLayoutColumns().toArray(new String[0]),
                         this.currentUser.getName());
@@ -66,8 +73,10 @@ public class UserUIConfigurationBean implements UserUIConfigurationAction, Seria
      * @param columns
      * @param user
      */
-    public void saveContentViewConfiguration(String contentView, String [] columns, String user) {
-        LOG.info("Saving content view configuration for " + user);
+    public void saveContentViewConfiguration(String contentView, String[] columns, String user) {
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Saving content view configuration for " + user);
+        }
         boolean needClose = false;
         if (this.documentManager == null) {
             this.documentManager = CoreInstance.openCoreSession("default");
@@ -89,7 +98,6 @@ public class UserUIConfigurationBean implements UserUIConfigurationAction, Seria
         // Get all content-views
         ContentViewService contentViewService = Framework.getService(ContentViewService.class);
         Set<String> cvws = contentViewService.getContentViewNames();
-        LOG.info("Current user " + currentUser);
         for (String cvw : cvws) {
             loadContentViewConfiguration(cvw, currentUser.getName());
         }
@@ -102,16 +110,11 @@ public class UserUIConfigurationBean implements UserUIConfigurationAction, Seria
      * @param user
      */
     public void loadContentViewConfiguration(String contentView, String user) {
-        if (!LOADED) {
-            LOG.info("Loading content view configuration for " + user);
-            // Load content view columns
-            UIConfigurationManager uiConfigurationManager = Framework.getService(UIConfigurationManager.class);
-            String[] columns = uiConfigurationManager.getContentViewColumns(documentManager, contentView, user);
-            for (String column : columns) {
-                LOG.info("Column " + column);
-            }
-            // TODO: Add to user content view in session
-            LOADED = true;
+        // Load content view columns
+        UIConfigurationManager uiConfigurationManager = Framework.getService(UIConfigurationManager.class);
+        String[] columns = uiConfigurationManager.getContentViewColumns(documentManager, contentView, user);
+        if (columns != null) {
+            this.contentViewActions.getContentView(contentView).setCurrentResultLayoutColumns(Arrays.asList(columns));
         }
     }
 
