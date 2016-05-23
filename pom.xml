@@ -6,7 +6,7 @@
 
     <groupId>org.athento.nuxeo.ui</groupId>
     <artifactId>athento-nx-ui</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
     <name>athento-nx-ui</name>
     <description>Athento NX UI Components and configuration</description>
 
