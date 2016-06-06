@@ -8,5 +8,7 @@ Bundle-Vendor: Athento
 Nuxeo-Component: OSGI-INF/Document-Model/Schemas/schemas-contrib.xml,
  OSGI-INF/Document-Model/Documents/doctype-contrib.xml,
  OSGI-INF/Listing-Views/Form-layouts/layouts-contrib.xml,
- OSGI-INF/ui-configuration-framework.xml
+ OSGI-INF/ui-configuration-framework.xml,
+ OSGI-INF/restAPI-contrib.xml,
+ OSGI-INF/openURL-contrib.xml
 Created-By: Athento
