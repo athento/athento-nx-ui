@@ -27,7 +27,7 @@ import static org.jboss.seam.ScopeType.SESSION;
  * Navigation action.
  */
 @Name("navigationAction")
-@Scope(ScopeType.CONVERSATION)
+@Scope(ScopeType.EVENT)
 public class NavigationActionBean implements NavigationAction, Serializable {
 
     /**
@@ -83,5 +83,37 @@ public class NavigationActionBean implements NavigationAction, Serializable {
     public void setCurrentPage(long currentPage) {
         this.currentPage = currentPage;
         gotoPage();
+    }
+
+    @Override
+    public void previous() {
+        PageProvider<?> provider = this.contentViewActions.getCurrentContentView()
+                .getPageProvider();
+        provider.previousPage();
+        this.currentPage = provider.getCurrentPageIndex() + 1;
+    }
+
+    @Override
+    public void next() {
+        PageProvider<?> provider = this.contentViewActions.getCurrentContentView()
+                .getPageProvider();
+        provider.nextPage();
+        this.currentPage = provider.getCurrentPageIndex() + 1;
+    }
+
+    @Override
+    public void last() {
+        PageProvider<?> provider = this.contentViewActions.getCurrentContentView()
+                .getPageProvider();
+        provider.lastPage();
+        this.currentPage = provider.getCurrentPageIndex() + 1;
+    }
+
+    @Override
+    public void rewind() {
+        PageProvider<?> provider = this.contentViewActions.getCurrentContentView()
+                .getPageProvider();
+        provider.firstPage();
+        this.currentPage = provider.getCurrentPageIndex() + 1;
     }
 }

@@ -23,6 +23,14 @@ public interface NavigationAction {
      * @param currentPage
      */
     void setCurrentPage(long currentPage);
+
+    void previous();
+
+    void next();
+
+    void last();
+
+    void rewind();
     
 
 }
