@@ -4,7 +4,7 @@ Athento UI for Nuxeo
 Save ContentView selected columns by user
 -----------------------------------------
 
-- You can selected your favourites columns as user.
+- You can selected your favourite columns as user.
 
 
 
