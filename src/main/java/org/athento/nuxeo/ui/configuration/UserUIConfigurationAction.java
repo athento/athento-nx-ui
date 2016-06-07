@@ -22,4 +22,5 @@ public interface UserUIConfigurationAction {
      */
     void loadContentViewConfiguration(String contentView, String user);
 
+
 }
