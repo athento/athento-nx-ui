@@ -1,6 +1,15 @@
-= Athento UI for Nuxeo =
+Athento UI for Nuxeo
+====================
 
-== Preview without authentication ==
+Save ContentView selected columns by user
+-----------------------------------------
+
+- You can selected your favourites columns as user.
+
+
+
+Preview without authentication
+------------------------------
 
 Preview is based on Restlet API with URL below:
 
@@ -13,3 +22,11 @@ where:
 - fieldPath: is the xpath of content to preview.
 - subpath: is use to reference images into preview (with no access token control)
 - token: is the basic control access token based on changedToken of dublincore:modified metadata.
+
+
+
+
+Select a page in a ContentView
+------------------------------
+
+- You can introduces a page index into page-navigator to select it in a ContentView.
