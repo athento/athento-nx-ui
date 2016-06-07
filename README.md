@@ -29,4 +29,4 @@ where:
 Select a page in a ContentView
 ------------------------------
 
-- You can introduces a page index into page-navigator to select it in a ContentView.
+- You can introduce a page index into page-navigator to select your page in a ContentView.
