@@ -60,7 +60,7 @@ public class NavigationActionBean implements NavigationAction, Serializable {
         if (this.currentPage < 0) {
             this.currentPage = 1;
         }
-        if (this.currentPage >= provider.getNumberOfPages()) {
+        if (provider.getNumberOfPages() > 0 && this.currentPage >= provider.getNumberOfPages()) {
             this.currentPage = provider.getNumberOfPages();
         }
         provider.setCurrentPageIndex(this.currentPage - 1);
