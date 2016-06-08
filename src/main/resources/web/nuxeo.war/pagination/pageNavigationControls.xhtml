@@ -22,7 +22,7 @@
                      <h:inputText value="#{navigationAction.currentPage}" style="width: 42px; margin-top: -3px; margin-right: 8px;">
                         <a4j:ajax event="valueChange" render="@form" execute="@this"/>
                     </h:inputText>
-                    <h:outputText style="margin: -3px; margin-right: 3px;" value="/ #{provider.getNumberOfPages()}" rendered="#{provider.getNumberOfPages() ge 0}"/>
+                    <h:outputText style="margin: -3px; margin-right: 3px;" value="/ #{provider.getNumberOfPages()}" rendered="#{provider.getNumberOfPages() gt 0}"/>
                 </h:panelGroup>
             </a4j:region>
             <h:commandButton action="#{provider.next()}"
