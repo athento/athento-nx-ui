@@ -73,8 +73,6 @@ public class PreviewRestlet extends BaseNuxeoRestlet {
     @Override
     public void handle(Request req, Response res) {
 
-        LOG.info("Previewing...");
-
         String repo = (String) req.getAttributes().get("repo");
         String docid = (String) req.getAttributes().get("docid");
         String xpath = (String) req.getAttributes().get("fieldPath");
@@ -123,8 +121,6 @@ public class PreviewRestlet extends BaseNuxeoRestlet {
             LOG.error("Login error in Athento preview", e);
             return;
         }
-
-        LOG.info("Subpath " + subPath + " token " + token);
 
         if (!ignoreSubpathAccess(subPath)) {
             if (!validToken(token, targetDocument)) {
@@ -195,10 +191,18 @@ public class PreviewRestlet extends BaseNuxeoRestlet {
         if (changeToken == null) {
             return false;
         }
-        String controlToken = String.format("%s%s", changeToken, TOKEN_ENDCHARS_CONTROL);
-        LOG.info("Token " + decodedToken + ", " + controlToken);
-        return controlToken.equals(decodedToken);
-
+        String changeDecodedToken = decodedToken.replace(TOKEN_ENDCHARS_CONTROL, "");
+        if (changeDecodedToken == null) {
+            return false;
+        }
+        try {
+            Long changeTokenTime = Long.valueOf(changeToken);
+            Long changeDecodedTokenTime = Long.valueOf(changeDecodedToken);
+            long time = changeTokenTime - changeDecodedTokenTime;
+            return time < 2592000000L; // 30 days in millis
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 
 
