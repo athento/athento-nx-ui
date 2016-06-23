@@ -16,6 +16,7 @@ import javax.security.auth.login.LoginException;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.fileupload.util.mime.MimeUtility;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.jboss.seam.ScopeType;
@@ -169,7 +170,8 @@ public class PreviewRestlet extends BaseNuxeoRestlet {
      * @return
      */
     private boolean ignoreSubpathAccess(String subPath) {
-        return subPath != null && (subPath.endsWith(".png") || subPath.endsWith(".jpg"));
+        return subPath != null && (!subPath.toLowerCase().endsWith(".png")
+                || !subPath.toLowerCase().endsWith(".jpg"));
     }
 
     /**
