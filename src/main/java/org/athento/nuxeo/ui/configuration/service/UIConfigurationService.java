@@ -2,9 +2,7 @@ package org.athento.nuxeo.ui.configuration.service;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.nuxeo.ecm.core.api.CoreSession;
-import org.nuxeo.ecm.core.api.DocumentModel;
-import org.nuxeo.ecm.core.api.DocumentModelList;
+import org.nuxeo.ecm.core.api.*;
 import org.nuxeo.runtime.model.DefaultComponent;
 import org.nuxeo.runtime.transaction.TransactionHelper;
 
@@ -18,7 +16,9 @@ public class UIConfigurationService extends DefaultComponent implements UIConfig
 
     private static final Log LOG = LogFactory.getLog(UIConfigurationService.class);
 
-    /** Query for get unique document config. */
+    /**
+     * Query for get unique document config.
+     */
     public static final String DOC_CONFIG_UNIQUE_QUERY = "SELECT * FROM ContentViewConfig";
 
     private static DocumentModel configUIDoc;
@@ -32,39 +32,45 @@ public class UIConfigurationService extends DefaultComponent implements UIConfig
      * @param user
      */
     @Override
-    public void saveContentViewColumns(CoreSession session, String contentView, String[] columns, String user) {
+    public void saveContentViewColumns(final CoreSession session, final String contentView, final String[] columns, final String user) {
         if (LOG.isDebugEnabled()) {
             LOG.debug("Save content view columns for " + user);
         }
-        // Get document with ui-configuration
-        loadUIConfigurationDocument(session);
+        new UnrestrictedSessionRunner(session) {
+            @Override
+            public void run() throws ClientException {
+                // Get document with ui-configuration
+                loadUIConfigurationDocument(session);
 
-        // Columns configuration
-        List<Map<String, Serializable>> allColumnsConfiguration =
-                (List<Map<String, Serializable>>) configUIDoc.getProperty("cvconfig", "contentView");
+                // Columns configuration
+                List<Map<String, Serializable>> allColumnsConfiguration =
+                        (List<Map<String, Serializable>>) configUIDoc.getProperty("cvconfig", "contentView");
 
-        // Get columns config for the user
-        Map<String, Serializable> columnsConfig = getUserConfiguration(configUIDoc, user, contentView);
+                // Get columns config for the user
+                Map<String, Serializable> columnsConfig = getUserConfiguration(configUIDoc, user, contentView);
 
-        if (columnsConfig == null) {
-            // Add new columns configuration for the user
-            columnsConfig = new HashMap<>();
-            columnsConfig.put("username", user);
-            columnsConfig.put("contentViewName", contentView);
-            columnsConfig.put("columnNames", columns);
-            allColumnsConfiguration.add(columnsConfig);
-        } else {
-            // Remove old columns
-            removeColumnsForUserAndContentView(allColumnsConfiguration, user, contentView);
-            // Update columns for the configuration
-            columnsConfig.put("columnNames", columns);
-            allColumnsConfiguration.add(columnsConfig);
-        }
+                if (columnsConfig == null) {
+                    // Add new columns configuration for the user
+                    columnsConfig = new HashMap<>();
+                    columnsConfig.put("username", user);
+                    columnsConfig.put("contentViewName", contentView);
+                    columnsConfig.put("columnNames", columns);
+                    allColumnsConfiguration.add(columnsConfig);
+                } else {
+                    // Remove old columns
+                    removeColumnsForUserAndContentView(allColumnsConfiguration, user, contentView);
+                    // Update columns for the configuration
+                    columnsConfig.put("columnNames", columns);
+                    allColumnsConfiguration.add(columnsConfig);
+                }
 
-        configUIDoc.setProperty("cvconfig", "contentView", allColumnsConfiguration);
+                configUIDoc.setProperty("cvconfig", "contentView", allColumnsConfiguration);
 
-        // Save document
-        session.saveDocument(configUIDoc);
+                // Save document
+                session.saveDocument(configUIDoc);
+            }
+        }.runUnrestricted();
+
         session.save();
 
         TransactionHelper.commitOrRollbackTransaction();
@@ -80,7 +86,7 @@ public class UIConfigurationService extends DefaultComponent implements UIConfig
      * @param contentViewName
      */
     private void removeColumnsForUserAndContentView(List<Map<String, Serializable>> allColumnsConfiguration, String user, String contentViewName) {
-        for (Iterator<Map<String, Serializable>> it = allColumnsConfiguration.iterator(); it.hasNext();) {
+        for (Iterator<Map<String, Serializable>> it = allColumnsConfiguration.iterator(); it.hasNext(); ) {
             Map<String, Serializable> configItem = it.next();
             String username = (String) configItem.get("username");
             String contentView = (String) configItem.get("contentViewName");
@@ -98,17 +104,22 @@ public class UIConfigurationService extends DefaultComponent implements UIConfig
      */
     private void loadUIConfigurationDocument(CoreSession session) {
         if (UIConfigurationService.configUIDoc == null) {
-            DocumentModel doc = null;
-            // Get configuration-ui document
-            DocumentModelList configUIDocList = session.query(DOC_CONFIG_UNIQUE_QUERY);
-            if (configUIDocList.isEmpty()) {
-                // Create document with config-ui
-                doc = createConfigUIDoc(session);
-            } else {
-                doc = configUIDocList.get(0);
-            }
-            UIConfigurationService.configUIDoc = doc;
-            LOG.info("Document UI configuration id " + UIConfigurationService.configUIDoc.getId());
+            new UnrestrictedSessionRunner(session) {
+                @Override
+                public void run() throws ClientException {
+                    DocumentModel doc = null;
+                    // Get configuration-ui document
+                    DocumentModelList configUIDocList = session.query(DOC_CONFIG_UNIQUE_QUERY);
+                    if (configUIDocList.isEmpty()) {
+                        // Create document with config-ui
+                        doc = createConfigUIDoc(session);
+                    } else {
+                        doc = configUIDocList.get(0);
+                    }
+                    UIConfigurationService.configUIDoc = doc;
+                    LOG.info("Document UI configuration id " + UIConfigurationService.configUIDoc.getId());
+                }
+            }.runUnrestricted();
         }
     }
 
