@@ -30,3 +30,13 @@ Select a page in a ContentView
 ------------------------------
 
 - You can introduce a page index into page-navigator to select your page in a ContentView.
+
+
+Preview pdf2htmlEX
+------------------
+
+Prerequisites
+
+MacOX:
+
+You need set config fonts with _export FONTCONFIG_PATH=/opt/X11/lib/X11/fontconfig_
