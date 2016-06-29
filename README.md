@@ -1,4 +1,4 @@
-### Athento UI for Nuxeo ###
+# Athento UI for Nuxeo #
 
 ## Save your contentView columns ##
 
@@ -26,7 +26,7 @@ where:
 
 ## Preview (pdf2htmlEX based) ##
 
-# Prerequisites #
+### Prerequisites ###
 
 MacOX:
 
