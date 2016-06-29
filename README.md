@@ -1,19 +1,15 @@
-Athento UI for Nuxeo
-====================
+# Athento UI for Nuxeo #
 
-Save ContentView selected columns by user
------------------------------------------
+## Save your contentView columns ##
 
-- You can selected your favourite columns as user.
+- You can select and save your favourite columns. After logout and login, you will have your selected columns again.
 
 
-
-Preview without authentication
-------------------------------
+## Preview without authentication ##
 
 Preview is based on Restlet API with URL below:
 
-GET /nuxeo/restAPI/athpreview/{repoId}/{docId}/{fieldPath}?subPath=(subPath)&amp;token=(token)
+        GET /nuxeo/restAPI/athpreview/{repoId}/{docId}/{fieldPath}?subPath=(subPath)&amp;token=(token)
 
 where:
 
@@ -23,20 +19,31 @@ where:
 - subpath: is use to reference images into preview (with no access token control)
 - token: is the basic control access token based on changedToken of dublincore:modified metadata.
 
+## Select a page in a ContentView ##
+
+- You can introduce a page index into page-navigator to select your page in a contentView.
 
 
+## Preview (pdf2htmlEX based) ##
 
-Select a page in a ContentView
-------------------------------
+### Prerequisites ###
 
-- You can introduce a page index into page-navigator to select your page in a ContentView.
+You can find install and quickstart information here: https://github.com/coolwanglu/pdf2htmlEX/wiki/Quick-Start
 
+Important about fonts:
 
-Preview pdf2htmlEX
-------------------
+- In your OS X: You need to set the config fonts with
 
-Prerequisites
+        export FONTCONFIG_PATH=/opt/X11/lib/X11/fontconfig
 
-MacOX:
+- In Ubuntu (14.04):
 
-You need set config fonts with _export FONTCONFIG_PATH=/opt/X11/lib/X11/fontconfig_
+- Add to /etc/apt/sources.list the lines below:
+
+    deb http://ppa.launchpad.net/fontforge/fontforge/ubuntu trusty main
+    deb-src http://ppa.launchpad.net/fontforge/fontforge/ubuntu trusty main
+
+- Now, execute:
+
+    sudo apt-get update
+    sudo apt-get install libfontforge-dev

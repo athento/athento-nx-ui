@@ -113,7 +113,7 @@ public class UserUIConfigurationBean implements UserUIConfigurationAction, Seria
         // Load content view columns
         UIConfigurationManager uiConfigurationManager = Framework.getService(UIConfigurationManager.class);
         String[] columns = uiConfigurationManager.getContentViewColumns(documentManager, contentView, user);
-        if (columns != null) {
+        if (columns != null && columns.length > 0) {
             this.contentViewActions.getContentView(contentView).setCurrentResultLayoutColumns(Arrays.asList(columns));
         }
     }
