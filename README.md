@@ -28,6 +28,8 @@ where:
 
 ### Prerequisites ###
 
-MacOX:
+You can find install and quickstart information here: https://github.com/coolwanglu/pdf2htmlEX/wiki/Quick-Start
 
-- You need to set the config fonts with _export FONTCONFIG_PATH=/opt/X11/lib/X11/fontconfig_
+Important about fonts:
+
+- In MacOX: You need to set the config fonts with _export FONTCONFIG_PATH=/opt/X11/lib/X11/fontconfig_
