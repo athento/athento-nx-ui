@@ -30,8 +30,6 @@ where:
 
 You can find install and quickstart information here: https://github.com/coolwanglu/pdf2htmlEX/wiki/Quick-Start
 
-Important about fonts:
-
 - In your OS X: You need to set the config fonts with
 
         export FONTCONFIG_PATH=/opt/X11/lib/X11/fontconfig
@@ -47,3 +45,4 @@ Important about fonts:
 
     sudo apt-get update
     sudo apt-get install libfontforge-dev
+
