@@ -9,7 +9,7 @@
 
 Preview is based on Restlet API with URL below:
 
-GET /nuxeo/restAPI/athpreview/{repoId}/{docId}/{fieldPath}?subPath=(subPath)&amp;token=(token)
+        GET /nuxeo/restAPI/athpreview/{repoId}/{docId}/{fieldPath}?subPath=(subPath)&amp;token=(token)
 
 where:
 
@@ -21,7 +21,7 @@ where:
 
 ## Select a page in a ContentView ##
 
-- You can introduce a page index into page-navigator to select your page in a ContentView.
+- You can introduce a page index into page-navigator to select your page in a contentView.
 
 
 ## Preview (pdf2htmlEX based) ##
