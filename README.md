@@ -1,15 +1,11 @@
-Athento UI for Nuxeo
-====================
+### Athento UI for Nuxeo ###
 
-Save ContentView selected columns by user
------------------------------------------
+## Save your contentView columns ##
 
-- You can selected your favourite columns as user.
+- You can select and save your favourite columns. After logout and login, you will have your selected columns again.
 
 
-
-Preview without authentication
-------------------------------
+## Preview without authentication ##
 
 Preview is based on Restlet API with URL below:
 
@@ -23,20 +19,15 @@ where:
 - subpath: is use to reference images into preview (with no access token control)
 - token: is the basic control access token based on changedToken of dublincore:modified metadata.
 
-
-
-
-Select a page in a ContentView
-------------------------------
+## Select a page in a ContentView ##
 
 - You can introduce a page index into page-navigator to select your page in a ContentView.
 
 
-Preview pdf2htmlEX
-------------------
+## Preview (pdf2htmlEX based) ##
 
-Prerequisites
+# Prerequisites #
 
 MacOX:
 
-You need set config fonts with _export FONTCONFIG_PATH=/opt/X11/lib/X11/fontconfig_
+- You need to set the config fonts with _export FONTCONFIG_PATH=/opt/X11/lib/X11/fontconfig_
