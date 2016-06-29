@@ -38,11 +38,11 @@ You can find install and quickstart information here: https://github.com/coolwan
 
 - Add to /etc/apt/sources.list the lines below:
 
-    deb http://ppa.launchpad.net/fontforge/fontforge/ubuntu trusty main
-    deb-src http://ppa.launchpad.net/fontforge/fontforge/ubuntu trusty main
+        deb http://ppa.launchpad.net/fontforge/fontforge/ubuntu trusty main
+        deb-src http://ppa.launchpad.net/fontforge/fontforge/ubuntu trusty main
 
 - Now, execute:
 
-    sudo apt-get update
-    sudo apt-get install libfontforge-dev
+        sudo apt-get update
+        sudo apt-get install libfontforge-dev
 
