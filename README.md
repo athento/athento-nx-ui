@@ -32,4 +32,6 @@ You can find install and quickstart information here: https://github.com/coolwan
 
 Important about fonts:
 
-- In MacOX: You need to set the config fonts with _export FONTCONFIG_PATH=/opt/X11/lib/X11/fontconfig_
+- In MacOX: You need to set the config fonts with 
+
+        export FONTCONFIG_PATH=/opt/X11/lib/X11/fontconfig
