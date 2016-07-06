@@ -105,7 +105,6 @@ public class NavigationActionBean implements NavigationAction, Serializable {
 
     @Override
     public void next(String contentView) {
-        LOG.info("Next for " + contentView + ", indexes = " + indexes);
         PageProvider<?> provider = this.contentViewActions.getContentViewWithProvider(contentView)
                 .getPageProvider();
         Long index = indexes.get(contentView);
@@ -149,6 +148,12 @@ public class NavigationActionBean implements NavigationAction, Serializable {
      */
     @Observer(ContentView.CONTENT_VIEW_REFRESH_EVENT)
     public void refreshAll() {
-        this.indexes.clear();
+        // Calculate index for each content view
+        for (String contentView : indexes.keySet()) {
+            PageProvider<?> provider = this.contentViewActions.getContentViewWithProvider(contentView)
+                    .getPageProvider();
+            provider.setCurrentPageIndex(0);
+            this.indexes.put(contentView, 0L);
+        }
     }
 }
