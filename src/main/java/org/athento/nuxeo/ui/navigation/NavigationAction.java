@@ -8,7 +8,7 @@ public interface NavigationAction {
     /**
      * Goto page.
      */
-    void gotoPage();
+    void gotoPage(long page, String contentView);
 
     /**
      * Get current page.
@@ -18,19 +18,28 @@ public interface NavigationAction {
     long getCurrentPage();
 
     /**
+     * Get current page.
+     *
+     * @return
+     */
+    long getCurrentPage(String contentView);
+
+    /**
      * Set current page.
      *
      * @param currentPage
      */
     void setCurrentPage(long currentPage);
 
-    void previous();
+    void previous(String contentView);
 
-    void next();
+    void next(String contentView);
 
-    void last();
+    void last(String contentView);
 
-    void rewind();
-    
+    void rewind(String contentView);
+
+    void setCurrentContentView(String contentView);
+
 
 }
