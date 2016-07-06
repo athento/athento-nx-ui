@@ -21,13 +21,13 @@
                     layout="block" styleClass="pageNavigationControls"
                     rendered="#{provider.nextPageAvailable or provider.previousPageAvailable}">
 
-                <a4j:commandButton action="#{navigationAction.rewind}"
+                <a4j:commandButton action="#{navigationAction.rewind(contentViewName)}"
                                    alt="#{messages['command.navigation.rewind']}"
                                    image="/icons/navigation_first.png"
                                    render="#{contentIdToBeReRendered}">
                     <f:attribute name="disabled" value="#{not provider.previousPageAvailable}"/>
                 </a4j:commandButton>
-                <a4j:commandButton action="#{navigationAction.previous}"
+                <a4j:commandButton action="#{navigationAction.previous(contentViewName)}"
                                    alt="#{messages['command.navigation.previous']}"
                                    image="/icons/navigation_previous.png"
                                    render="#{contentIdToBeReRendered}">
@@ -35,21 +35,20 @@
                 </a4j:commandButton>
 
                 <h:panelGroup styleClass="currentPageStatus">
-                    <h:inputText value="#{navigationAction.currentPage}"
+                    <h:inputText styleClass="#{contentViewName}_idx_currentPage" value="#{navigationAction.currentPage}"
                                  style="width: 42px; margin-top: -3px; margin-right: 8px;">
-                        <a4j:ajax event="valueChange" render="@form" execute="@this"/>
+                        <a4j:ajax render="@form" execute="@this" listener="#{navigationAction.setCurrentContentView(contentViewName)}"/>
                     </h:inputText>
                     <h:outputText style="margin: -3px; margin-right: 3px;" value="/ #{provider.getNumberOfPages()}" rendered="#{provider.getNumberOfPages() gt 0}"/>
                 </h:panelGroup>
-
-                <a4j:commandButton action="#{navigationAction.next}"
+                <a4j:commandButton action="#{navigationAction.next(contentViewName)}"
                                    alt="#{messages['command.navigation.next']}"
                                    image="/icons/navigation_next.png"
                                    render="#{contentIdToBeReRendered}">
                     <f:attribute name="disabled" value="#{not provider.nextPageAvailable}"/>
                 </a4j:commandButton>
 
-                <a4j:commandButton action="#{navigationAction.last}"
+                <a4j:commandButton action="#{navigationAction.last(contentViewName)}"
                                    alt="#{messages['command.navigation.fastforward']}"
                                    image="/icons/navigation_last.png"
                                    render="#{contentIdToBeReRendered}">
@@ -64,8 +63,11 @@
                         <h:graphicImage value="/icons/icon_spacer.gif"/>
                     </f:facet>
                 </a4j:status>
-
             </h:panelGroup>
+
+            <script>
+                jQuery('.#{contentViewName}_idx_currentPage').val('#{navigationAction.getCurrentPage(contentViewName) + 1}');
+            </script>
 
 
         </a4j:region>
