@@ -6,6 +6,7 @@ import org.athento.nuxeo.ui.configuration.UserUIConfigurationAction;
 import org.athento.nuxeo.ui.configuration.service.UIConfigurationManager;
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.*;
+import org.jboss.seam.annotations.Observer;
 import org.nuxeo.ecm.core.api.CoreInstance;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.platform.contentview.jsf.ContentView;
@@ -134,5 +135,20 @@ public class NavigationActionBean implements NavigationAction, Serializable {
         provider.firstPage();
         this.currentPage = provider.getCurrentPageIndex();
         this.indexes.put(contentView, this.currentPage);
+    }
+
+    /**
+     * Refresh indexes.
+     */
+    public void refresh(String contentView) {
+        this.indexes.remove(contentView);
+    }
+
+    /**
+     * Refresh all indexes.
+     */
+    @Observer(ContentView.CONTENT_VIEW_REFRESH_EVENT)
+    public void refreshAll() {
+        this.indexes.clear();
     }
 }
