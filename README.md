@@ -40,11 +40,13 @@ You can find install and quickstart information here: https://github.com/coolwan
 
                 deb http://ppa.launchpad.net/fontforge/fontforge/ubuntu trusty main
                 deb-src http://ppa.launchpad.net/fontforge/fontforge/ubuntu trusty main
+                deb http://ftp.de.debian.org/debian sid main 
 
  - Now, execute:
 
                 apt-get update
-                apt-get install libfontforge-dev
+                apt-get install libfontforge-dev 
+                apt-get install pdf2htmlex
 
 - In Ubuntu (16.04 xenial):
  - Download distribution from http://launchpadlibrarian.net/233283831/fontforge_20120731.b-7.1_i386.deb
