@@ -28,7 +28,7 @@ where:
 
 ### Prerequisites ###
 
-You can find install and quickstart information here: https://github.com/coolwanglu/pdf2htmlEX/wiki/Quick-Start
+You can find install and quickstart information here: https://github.com/coolwanglu/pdf2htmlEX
 
 - In your OS X: You need to set the config fonts with
 
