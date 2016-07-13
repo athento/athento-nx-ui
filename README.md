@@ -34,7 +34,7 @@ You can find install and quickstart information here: https://github.com/coolwan
 
         export FONTCONFIG_PATH=/opt/X11/lib/X11/fontconfig
 
-- In Ubuntu (14.04):
+- In Ubuntu (14.04 trusty):
 
  - Add to /etc/apt/sources.list the lines below:
 
@@ -43,6 +43,15 @@ You can find install and quickstart information here: https://github.com/coolwan
 
  - Now, execute:
 
-                sudo apt-get update
-                sudo apt-get install libfontforge-dev
+                apt-get update
+                apt-get install libfontforge-dev
 
+- In Ubuntu (16.04 xenial):
+ - Download distribution from http://launchpadlibrarian.net/233283831/fontforge_20120731.b-7.1_i386.deb
+                wget http://launchpadlibrarian.net/233283831/fontforge_20120731.b-7.1_i386.deb
+ - Install dependencies
+                wget http://launchpadlibrarian.net/233283831/fontforge_20120731.b-7.1_i386.deb
+                apt-get install libpython2.7 libc6 libgdraw4 libfontforge1 fontforge-common
+                apt-get -f install
+ - Install local package
+                dpkg -i fontforge_20120731.b-7.1_i386.deb
