@@ -10,7 +10,5 @@ Nuxeo-Component: OSGI-INF/Document-Model/Schemas/schemas-contrib.xml,
  OSGI-INF/Listing-Views/Form-layouts/layouts-contrib.xml,
  OSGI-INF/ui-configuration-framework.xml,
  OSGI-INF/restAPI-contrib.xml,
- OSGI-INF/openURL-contrib.xml,
- OSGI-INF/Converter/convert-contrib.xml,
- OSGI-INF/CommandLine/commandline-pdf2htmlex-contrib.xml
+ OSGI-INF/openURL-contrib.xml
 Created-By: Athento
