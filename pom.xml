@@ -6,7 +6,7 @@
 
     <groupId>org.athento.nuxeo</groupId>
     <artifactId>athento-nx-ui</artifactId>
-    <version>1.3b</version>
+    <version>1.3c</version>
     <name>athento-nx-ui</name>
     <description>Athento NX UI Components and configuration</description>
 
@@ -33,7 +33,6 @@
 		</snapshotRepository>
 	</distributionManagement>
 
-
     <developers>
         <developer>
             <id>vs</id>
@@ -44,22 +43,6 @@
             <organizationUrl>http://www.athento.com</organizationUrl>
         </developer>
     </developers>
-
-	<distributionManagement>
-		<repository>
-			<id>athento-public</id>
-			<name>Athento Public</name>
-			<url>http://maven2.yerbabuena.es/artifactory/athento-public</url>
-			<layout>default</layout>
-		</repository>
-		<snapshotRepository>
-			<uniqueVersion>true</uniqueVersion>
-			<id>athento-public-snapshot</id>
-			<name>Athento Public Snapshot</name>
-			<url>http://maven2.yerbabuena.es/artifactory/athento-public-snapshot</url>
-			<layout>default</layout>
-		</snapshotRepository>
-	</distributionManagement>
 
     <dependencyManagement>
         <dependencies>
