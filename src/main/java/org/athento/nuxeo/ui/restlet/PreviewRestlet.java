@@ -69,7 +69,8 @@ public class PreviewRestlet extends BaseNuxeoRestlet {
     @In(create = true)
     protected transient ResourcesAccessor resourcesAccessor;
 
-    protected static final List<String> previewInProcessing = Collections.synchronizedList(new ArrayList<String>());
+    protected static final List<String> previewInProcessing = Collections
+        .synchronizedList(new ArrayList<String>());
 
     @Override
     public void handle(Request req, Response res) {
@@ -96,8 +97,9 @@ public class PreviewRestlet extends BaseNuxeoRestlet {
         }
 
         String blobPostProcessingParameter = getQueryParamValue(req,
-                "blobPostProcessing", "false");
-        boolean blobPostProcessing = Boolean.parseBoolean(blobPostProcessingParameter);
+            "blobPostProcessing", "false");
+        boolean blobPostProcessing = Boolean
+            .parseBoolean(blobPostProcessingParameter);
 
         if (repo == null || repo.equals("*")) {
             handleError(res, "you must specify a repository");
@@ -111,7 +113,7 @@ public class PreviewRestlet extends BaseNuxeoRestlet {
         try {
             Framework.login();
             navigationContext.setCurrentServerLocation(new RepositoryLocation(
-                    repo));
+                repo));
             documentManager = navigationContext.getOrCreateDocumentManager();
             targetDocument = documentManager.getDocument(new IdRef(docid));
         } catch (ClientException e) {
@@ -170,8 +172,16 @@ public class PreviewRestlet extends BaseNuxeoRestlet {
      * @return
      */
     private boolean ignoreSubpathAccess(String subPath) {
-        return subPath != null && (!subPath.toLowerCase().endsWith(".png")
-                || !subPath.toLowerCase().endsWith(".jpg"));
+        boolean result = subPath != null
+            && (!subPath.toLowerCase().endsWith(".png")
+                || !subPath.toLowerCase().endsWith(".jpg") 
+                || !subPath.toLowerCase().endsWith(".jpeg")
+                || !subPath.toLowerCase().contains("gettiles")
+               );
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("checking if is valid path [" + subPath + "]: " + result);
+        }
+        return result;
     }
 
     /**
@@ -193,7 +203,8 @@ public class PreviewRestlet extends BaseNuxeoRestlet {
         if (changeToken == null) {
             return false;
         }
-        String changeDecodedToken = decodedToken.replace(TOKEN_ENDCHARS_CONTROL, "");
+        String changeDecodedToken = decodedToken.replace(
+            TOKEN_ENDCHARS_CONTROL, "");
         if (changeDecodedToken == null) {
             return false;
         }
@@ -207,9 +218,8 @@ public class PreviewRestlet extends BaseNuxeoRestlet {
         }
     }
 
-
     private List<Blob> initCachedBlob(Response res, String xpath,
-            boolean blobPostProcessing) throws ClientException {
+        boolean blobPostProcessing) throws ClientException {
 
         HtmlPreviewAdapter preview = null; // getFromCache(targetDocument,
                                            // xpath);
@@ -229,7 +239,7 @@ public class PreviewRestlet extends BaseNuxeoRestlet {
                 previewBlobs = preview.getFilePreviewBlobs(blobPostProcessing);
             } else {
                 previewBlobs = preview.getFilePreviewBlobs(xpath,
-                        blobPostProcessing);
+                    blobPostProcessing);
             }
         } catch (PreviewException e) {
             previewInProcessing.remove(targetDocument.getId());
@@ -250,12 +260,12 @@ public class PreviewRestlet extends BaseNuxeoRestlet {
         sb.append("<html><body><center><h1>");
         if (e == null) {
             sb.append(resourcesAccessor.getMessages().get(
-                    "label.not.available.preview")
-                    + "</h1>");
+                "label.not.available.preview")
+                + "</h1>");
         } else {
             sb.append(resourcesAccessor.getMessages().get(
-                    "label.cannot.generated.preview")
-                    + "</h1>");
+                "label.cannot.generated.preview")
+                + "</h1>");
             sb.append("<pre>Technical issue:</pre>");
             sb.append("<pre>Blob path: ");
             sb.append(xpath);
@@ -279,9 +289,9 @@ public class PreviewRestlet extends BaseNuxeoRestlet {
     }
 
     protected void handlePreview(Response res, Blob previewBlob, String mimeType)
-            throws IOException {
+        throws IOException {
         final File tempfile = File.createTempFile("nuxeo-previewrestlet-tmp",
-                "");
+            "");
         Framework.trackFile(tempfile, res);
         previewBlob.transferTo(tempfile);
         res.setEntity(new OutputRepresentation(null) {
