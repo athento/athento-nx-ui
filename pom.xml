@@ -169,6 +169,11 @@
             <groupId>com.ibm.icu</groupId>
             <artifactId>icu4j</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.nuxeo.ecm.core</groupId>
+            <artifactId>nuxeo-platform-login-token</artifactId>
+            <version>6.0-ATH-1.0</version>
+        </dependency>
     </dependencies>
 
     <repositories>

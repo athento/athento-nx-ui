@@ -29,6 +29,7 @@ import org.nuxeo.ecm.automation.core.util.DocumentHelper;
 import org.nuxeo.ecm.core.api.impl.blob.FileBlob;
 import org.nuxeo.ecm.core.utils.DocumentModelUtils;
 import org.nuxeo.ecm.platform.ui.web.tag.fn.DocumentModelFunctions;
+import org.nuxeo.ecm.tokenauth.service.TokenAuthenticationService;
 import org.restlet.data.MediaType;
 import org.restlet.data.Request;
 import org.restlet.data.Response;
@@ -260,6 +261,10 @@ public class PreviewRestlet extends BaseNuxeoRestlet {
     }
 
     protected void handleNoPreview(Response res, String xpath, Exception e) {
+
+        // Generate token
+        String token = generateToken();
+
         // Load no-templates template
         File home = Environment.getDefault().getHome();
         FileBlob noPreviewTemplate = new FileBlob(new File(home + "/nuxeo.war/templates/no-preview.html.ftl"));
@@ -276,6 +281,7 @@ public class PreviewRestlet extends BaseNuxeoRestlet {
             Object value = prop.getValue();
             params.put(key.replace(".", "_"), value);
         }
+        params.put("token", token);
 
         try {
             String templateContent = noPreviewTemplate.getString();
@@ -287,6 +293,16 @@ public class PreviewRestlet extends BaseNuxeoRestlet {
             LOG.error("Unable to make ftl rendering for no-templates document", e1);
             handleNoPreviewDefault(res, xpath, e);
         }
+    }
+
+    /**
+     * Generate a token.
+     *
+     * @return token
+     */
+    private String generateToken() {
+        TokenAuthenticationService tokenAuthService = Framework.getService(TokenAuthenticationService.class);
+        return tokenAuthService.acquireToken("Administrator", "preview", "default", "default", "r");
     }
 
     protected void handleNoPreviewDefault(Response res, String xpath, Exception e) {
