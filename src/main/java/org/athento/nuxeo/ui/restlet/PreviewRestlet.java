@@ -76,7 +76,7 @@ public class PreviewRestlet extends BaseNuxeoRestlet {
     protected transient ResourcesAccessor resourcesAccessor;
 
     protected static final List<String> previewInProcessing = Collections
-        .synchronizedList(new ArrayList<String>());
+            .synchronizedList(new ArrayList<String>());
 
     @Override
     public void handle(Request req, Response res) {
@@ -85,6 +85,11 @@ public class PreviewRestlet extends BaseNuxeoRestlet {
         String docid = (String) req.getAttributes().get("docid");
         String xpath = (String) req.getAttributes().get("fieldPath");
         String token = getQueryParamValue(req, "token", "");
+
+        if (token == null) {
+            handleError(res, "Token is mandatory for preview");
+            return;
+        }
 
         xpath = xpath.replace("-", "/");
         List<String> segments = req.getResourceRef().getSegments();
@@ -103,9 +108,9 @@ public class PreviewRestlet extends BaseNuxeoRestlet {
         }
 
         String blobPostProcessingParameter = getQueryParamValue(req,
-            "blobPostProcessing", "false");
+                "blobPostProcessing", "false");
         boolean blobPostProcessing = Boolean
-            .parseBoolean(blobPostProcessingParameter);
+                .parseBoolean(blobPostProcessingParameter);
 
         if (repo == null || repo.equals("*")) {
             handleError(res, "you must specify a repository");
@@ -119,7 +124,7 @@ public class PreviewRestlet extends BaseNuxeoRestlet {
         try {
             Framework.login();
             navigationContext.setCurrentServerLocation(new RepositoryLocation(
-                repo));
+                    repo));
             documentManager = navigationContext.getOrCreateDocumentManager();
             targetDocument = documentManager.getDocument(new IdRef(docid));
         } catch (ClientException e) {
@@ -131,11 +136,15 @@ public class PreviewRestlet extends BaseNuxeoRestlet {
             return;
         }
 
-        if (!ignoreSubpathAccess(subPath)) {
+        if (!ignoreSubpathAccess(subPath, sb.toString())) {
             if (!validToken(token, targetDocument)) {
                 handleError(res, "Token is invalid.");
                 return;
+            } else {
+                LOG.info("Token is valid");
             }
+        } else {
+            LOG.info("Ignoring subpath for " + subPath + ", " + req.getResourceRef());
         }
 
         List<Blob> previewBlobs;
@@ -177,17 +186,12 @@ public class PreviewRestlet extends BaseNuxeoRestlet {
      * @param subPath
      * @return
      */
-    private boolean ignoreSubpathAccess(String subPath) {
-        boolean result = subPath != null
-            && (!subPath.toLowerCase().endsWith(".png")
-                || !subPath.toLowerCase().endsWith(".jpg") 
+    private boolean ignoreSubpathAccess(String subPath, String url) {
+        return subPath != null && !subPath.isEmpty() && url != null && !url.isEmpty()
+                && (!subPath.toLowerCase().endsWith(".png")
+                || !subPath.toLowerCase().endsWith(".jpg")
                 || !subPath.toLowerCase().endsWith(".jpeg")
-                || !subPath.toLowerCase().contains("gettiles")
-               );
-        if (LOG.isDebugEnabled()) {
-            LOG.debug("checking if is valid path [" + subPath + "]: " + result);
-        }
-        return result;
+                || !url.toLowerCase().contains("gettiles"));
     }
 
     /**
@@ -210,7 +214,7 @@ public class PreviewRestlet extends BaseNuxeoRestlet {
             return false;
         }
         String changeDecodedToken = decodedToken.replace(
-            TOKEN_ENDCHARS_CONTROL, "");
+                TOKEN_ENDCHARS_CONTROL, "");
         if (changeDecodedToken == null) {
             return false;
         }
@@ -225,10 +229,10 @@ public class PreviewRestlet extends BaseNuxeoRestlet {
     }
 
     private List<Blob> initCachedBlob(Response res, String xpath,
-        boolean blobPostProcessing) throws ClientException {
+                                      boolean blobPostProcessing) throws ClientException {
 
         HtmlPreviewAdapter preview = null; // getFromCache(targetDocument,
-                                           // xpath);
+        // xpath);
 
         // if (templates == null) {
         preview = targetDocument.getAdapter(HtmlPreviewAdapter.class);
@@ -245,7 +249,7 @@ public class PreviewRestlet extends BaseNuxeoRestlet {
                 previewBlobs = preview.getFilePreviewBlobs(blobPostProcessing);
             } else {
                 previewBlobs = preview.getFilePreviewBlobs(xpath,
-                    blobPostProcessing);
+                        blobPostProcessing);
             }
         } catch (PreviewException e) {
             previewInProcessing.remove(targetDocument.getId());
@@ -311,12 +315,12 @@ public class PreviewRestlet extends BaseNuxeoRestlet {
         sb.append("<html><body><center><h1>");
         if (e == null) {
             sb.append(resourcesAccessor.getMessages().get(
-                "label.not.available.templates")
-                + "</h1>");
+                    "label.not.available.templates")
+                    + "</h1>");
         } else {
             sb.append(resourcesAccessor.getMessages().get(
-                "label.cannot.generated.templates")
-                + "</h1>");
+                    "label.cannot.generated.templates")
+                    + "</h1>");
             sb.append("<pre>Technical issue:</pre>");
             sb.append("<pre>Blob path: ");
             sb.append(xpath);
@@ -340,9 +344,9 @@ public class PreviewRestlet extends BaseNuxeoRestlet {
     }
 
     protected void handlePreview(Response res, Blob previewBlob, String mimeType)
-        throws IOException {
+            throws IOException {
         final File tempfile = File.createTempFile("nuxeo-previewrestlet-tmp",
-            "");
+                "");
         Framework.trackFile(tempfile, res);
         previewBlob.transferTo(tempfile);
         res.setEntity(new OutputRepresentation(null) {
