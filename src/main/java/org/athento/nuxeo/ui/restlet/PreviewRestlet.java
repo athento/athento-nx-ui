@@ -5,11 +5,9 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
+import java.net.URI;
 import java.net.URLDecoder;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
 import javax.security.auth.login.LoginContext;
 import javax.security.auth.login.LoginException;
@@ -24,6 +22,13 @@ import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.international.LocaleSelector;
+import org.nuxeo.common.Environment;
+import org.nuxeo.ecm.automation.OperationContext;
+import org.nuxeo.ecm.automation.core.rendering.RenderingService;
+import org.nuxeo.ecm.automation.core.util.DocumentHelper;
+import org.nuxeo.ecm.core.api.impl.blob.FileBlob;
+import org.nuxeo.ecm.core.utils.DocumentModelUtils;
+import org.nuxeo.ecm.platform.ui.web.tag.fn.DocumentModelFunctions;
 import org.restlet.data.MediaType;
 import org.restlet.data.Request;
 import org.restlet.data.Response;
@@ -121,7 +126,7 @@ public class PreviewRestlet extends BaseNuxeoRestlet {
             handleError(res, e);
             return;
         } catch (LoginException e) {
-            LOG.error("Login error in Athento preview", e);
+            LOG.error("Login error in Athento templates", e);
             return;
         }
 
@@ -136,7 +141,7 @@ public class PreviewRestlet extends BaseNuxeoRestlet {
         try {
             previewBlobs = initCachedBlob(res, xpath, blobPostProcessing);
         } catch (Exception e) {
-            handleError(res, "unable to get preview");
+            handleError(res, "unable to get templates");
             return;
         }
         if (previewBlobs == null || previewBlobs.isEmpty()) {
@@ -224,7 +229,7 @@ public class PreviewRestlet extends BaseNuxeoRestlet {
         HtmlPreviewAdapter preview = null; // getFromCache(targetDocument,
                                            // xpath);
 
-        // if (preview == null) {
+        // if (templates == null) {
         preview = targetDocument.getAdapter(HtmlPreviewAdapter.class);
         // }
 
@@ -255,16 +260,46 @@ public class PreviewRestlet extends BaseNuxeoRestlet {
     }
 
     protected void handleNoPreview(Response res, String xpath, Exception e) {
+        // Load no-templates template
+        File home = Environment.getDefault().getHome();
+        FileBlob noPreviewTemplate = new FileBlob(new File(home + "/nuxeo.war/templates/no-preview.html.ftl"));
+
+        Map<String, Object> params = new HashMap<>();
+        for (Map.Entry<String, Object> prop : DocumentModelUtils.getProperties(targetDocument).entrySet()) {
+            String key = prop.getKey();
+            Object value = prop.getValue();
+            params.put(key.replace(":", "_"), value);
+        }
+        params.put("doc", targetDocument);
+        for (Map.Entry<Object, Object> prop : Framework.getProperties().entrySet()) {
+            String key = (String) prop.getKey();
+            Object value = prop.getValue();
+            params.put(key.replace(".", "_"), value);
+        }
+
+        try {
+            String templateContent = noPreviewTemplate.getString();
+            String rendered = RenderingService.getInstance().getRenderer("ftl").render(templateContent, params);
+            res.setEntity(rendered, MediaType.TEXT_HTML);
+            HttpServletResponse response = getHttpResponse(res);
+            response.setHeader("Content-Disposition", "inline");
+        } catch (Exception e1) {
+            LOG.error("Unable to make ftl rendering for no-templates document", e1);
+            handleNoPreviewDefault(res, xpath, e);
+        }
+    }
+
+    protected void handleNoPreviewDefault(Response res, String xpath, Exception e) {
         StringBuilder sb = new StringBuilder();
 
         sb.append("<html><body><center><h1>");
         if (e == null) {
             sb.append(resourcesAccessor.getMessages().get(
-                "label.not.available.preview")
+                "label.not.available.templates")
                 + "</h1>");
         } else {
             sb.append(resourcesAccessor.getMessages().get(
-                "label.cannot.generated.preview")
+                "label.cannot.generated.templates")
                 + "</h1>");
             sb.append("<pre>Technical issue:</pre>");
             sb.append("<pre>Blob path: ");
@@ -279,7 +314,7 @@ public class PreviewRestlet extends BaseNuxeoRestlet {
         if (e instanceof NothingToPreviewException) {
             // Not an error, don't log
         } else {
-            LOG.error("Could not build preview for missing blob at " + xpath, e);
+            LOG.error("Could not build templates for missing blob at " + xpath, e);
         }
 
         res.setEntity(sb.toString(), MediaType.TEXT_HTML);
