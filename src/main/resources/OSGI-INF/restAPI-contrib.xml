@@ -19,6 +19,18 @@
             </urlPatterns>
         </restletPlugin>
 
+        <restletPlugin
+                name="getTiles" enabled="false" />
+
+        <restletPlugin
+                name="athTiles"
+                class="org.athento.nuxeo.ui.restlet.PictureTilesRestlets"
+                enabled="true"
+                useSeam="true">
+            <urlPatterns>
+                <urlPattern>/getTiles/{repoId}/{docId}/{tileWidth}/{tileHeight}/{maxTiles}</urlPattern>
+            </urlPatterns>
+        </restletPlugin>
     </extension>
 
 </component>
