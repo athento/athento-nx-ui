@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<component name="org.athento.nuxeo.ui.user-registration-contrib">
+
+
+  <extension target="org.nuxeo.ecm.user.invite.UserInvitationService"
+             point="configuration">
+    <configuration merge="true">
+      <validationEmail>
+        <title>You are invited to access Athento ECM</title>
+        <template>skin/views/userRegistrationAthento/ValidationEmailTemplateAthento.ftl</template>
+      </validationEmail>
+      <reviveEmail>
+        <title>You are invited to access Athento ECM</title>
+        <template>skin/views/userRegistrationAthento/ReviveEmailTemplateAthento.ftl</template>
+      </reviveEmail>
+      <enterPasswordUrl>site/userInvitationAthento/enterpassword/</enterPasswordUrl>
+      <validationRelUrl>site/userInvitationAthento/validate</validationRelUrl>
+    </configuration>
+  </extension>
+
+</component>
