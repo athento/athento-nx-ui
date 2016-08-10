@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <fragment version="1">
 
-    <require>org.nuxeo.ecm.webengine.invite</require>
+    <require>all</require>
 
     <extension target="application#MODULE">
         <module>
