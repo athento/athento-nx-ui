@@ -10,7 +10,7 @@ You have been invited to access the Athento ECM.
 <p>${registrationDoc.registration.comment}</p>
 </#if>
 
-<p>Click on the following link to validate your invitation:</p>
+<p>Click on the following link to validate your invitation and set your password:</p>
 <br/>
 <a href="${info['enterPasswordUrl']}${registrationDoc.id}">Validate my invitation</a>
 
@@ -29,6 +29,6 @@ You have been invited to access the Athento ECM.
 
 <br />
 
-Thanks!, your Athento ECM team.
+Thanks! Athento team.
 </body>
 </html>

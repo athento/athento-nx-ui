@@ -5,7 +5,7 @@ Bundle-Name: Athento NX User Interface
 Require-Bundle: org.nuxeo.runtime
 Bundle-ManifestVersion: 2
 Bundle-Vendor: Athento
-Nuxeo-WebModule: org.nuxeo.ecm.webengine.app.WebEngineModule;name=invite;extends=base;headless=true
+Nuxeo-WebModule: org.nuxeo.ecm.webengine.app.WebEngineModule;name=inviteAthento;extends=invite;headless=true
 Nuxeo-AllowOverride: true
 Nuxeo-Component: OSGI-INF/Document-Model/Schemas/schemas-contrib.xml,
  OSGI-INF/Document-Model/Documents/doctype-contrib.xml,
