@@ -28,21 +28,21 @@
         </developer>
     </developers>
 
-	<distributionManagement>
-		<repository>
-			<id>athento-public</id>
-			<name>Athento Public</name>
-			<url>http://maven2.yerbabuena.es/artifactory/athento-public</url>
-			<layout>default</layout>
-		</repository>
-		<snapshotRepository>
-			<uniqueVersion>true</uniqueVersion>
-			<id>athento-public-snapshot</id>
-			<name>Athento Public Snapshot</name>
-			<url>http://maven2.yerbabuena.es/artifactory/athento-public-snapshot</url>
-			<layout>default</layout>
-		</snapshotRepository>
-	</distributionManagement>
+    <distributionManagement>
+        <repository>
+            <id>athento-public</id>
+            <name>Athento Public</name>
+            <url>http://maven2.yerbabuena.es/artifactory/athento-public</url>
+            <layout>default</layout>
+        </repository>
+        <snapshotRepository>
+            <uniqueVersion>true</uniqueVersion>
+            <id>athento-public-snapshot</id>
+            <name>Athento Public Snapshot</name>
+            <url>http://maven2.yerbabuena.es/artifactory/athento-public-snapshot</url>
+            <layout>default</layout>
+        </snapshotRepository>
+    </distributionManagement>
 
     <dependencyManagement>
         <dependencies>
@@ -183,7 +183,7 @@
     <repositories>
         <repository>
             <id>public</id>
-            <name>Nuxeo Public </name>
+            <name>Nuxeo Public</name>
             <url>https://maven.nuxeo.org/nexus/content/repositories/public</url>
             <layout>default</layout>
             <releases>
@@ -268,6 +268,31 @@
                         </manifestFile>
                     </archive>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.athento.nuxeo.plugin</groupId>
+                <artifactId>athento-nx-single-addon</artifactId>
+                <version>1.0</version>
+                <configuration>
+                    <name>${project.artifactId}</name>
+                    <version>${project.version}</version>
+                    <properties>
+                        <url>http://www.athento.com</url>
+                        <title>${project.name}</title>
+                        <description>${project.description}</description>
+                        <platform>cap-6.0</platform>
+                    </properties>
+                    <outputDir>addon</outputDir>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>addon-generation</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
