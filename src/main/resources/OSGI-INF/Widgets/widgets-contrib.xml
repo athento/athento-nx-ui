@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<component name="org.athento.athento-nx-ui.WidgetsContrib"
+	version="1.0.0">
+	
+	<require>org.nuxeo.runtime.started</require>
+
+	<extension target="org.nuxeo.ecm.platform.forms.layout.WebLayoutManager"
+			   point="widgettypes">
+
+		<widgetType name="currency">
+			<configuration>
+				<title>Currency</title>
+				<description>
+					<p>
+						The currency widget displays an input text in create or edit mode, with
+						additional message tag for errors, and a regular text output in
+						anyother mode. It uses a currency converter.
+					</p>
+					<p>
+						Widgets using this type can provide properties accepted on a
+						&lt;h:inputText /&gt; tag in create or edit mode, and properties
+						accepted on a &lt;h:outputText /&gt; tag in other modes.
+					</p>
+				</description>
+				<demo id="currencyWidget" previewEnabled="true" />
+				<categories>
+					<category>document</category>
+				</categories>
+				<supportedModes>
+					<mode>edit</mode>
+					<mode>view</mode>
+				</supportedModes>
+				<fields>
+					<list>false</list>
+					<complex>false</complex>
+					<supportedTypes>
+						<type>float</type>
+						<type>double</type>
+					</supportedTypes>
+					<defaultTypes>
+						<type>float</type>
+					</defaultTypes>
+				</fields>
+				<properties>
+					<layouts mode="view">
+						<layout name="int_widget_type_properties_view">
+							<rows>
+								<row>
+									<widget category="widgetTypeConf">style</widget>
+								</row>
+								<row>
+									<widget category="widgetTypeConf">styleClass</widget>
+								</row>
+								<row>
+									<widget category="widgetTypeConf">title</widget>
+								</row>
+                                <row>
+                                    <widget category="widgetTypeConf">type</widget>
+                                </row>
+                                <row>
+                                    <widget category="widgetTypeConf">pattern</widget>
+                                </row>
+                                <row>
+                                    <widget category="widgetTypeConf">currencySymbol</widget>
+                                </row>
+							</rows>
+						</layout>
+					</layouts>
+					<layouts mode="edit">
+						<layout name="int_widget_type_properties_edit">
+							<rows>
+								<row>
+									<widget category="widgetTypeConf">required</widget>
+								</row>
+								<row>
+									<widget category="widgetTypeConf">maxlength</widget>
+								</row>
+								<row>
+									<widget category="widgetTypeConf">style</widget>
+								</row>
+								<row>
+									<widget category="widgetTypeConf">styleClass</widget>
+								</row>
+								<row>
+									<widget category="widgetTypeConf">title</widget>
+								</row>
+								<row>
+									<widget category="widgetTypeConf">accesskey</widget>
+								</row>
+								<row>
+									<widget category="widgetTypeConf">alt</widget>
+								</row>
+								<row>
+									<widget category="widgetTypeConf">dir</widget>
+								</row>
+								<row>
+									<widget category="widgetTypeConf">placeholder</widget>
+								</row>
+								<row>
+									<widget category="widgetTypeConf">disabled</widget>
+								</row>
+								<row>
+									<widget category="widgetTypeConf">immediate</widget>
+								</row>
+								<row>
+									<widget category="widgetTypeConf">lang</widget>
+								</row>
+								<row>
+									<widget category="widgetTypeConf">validator</widget>
+								</row>
+								<row>
+									<widget category="widgetTypeConf">valueChangeListener</widget>
+								</row>
+							</rows>
+						</layout>
+					</layouts>
+				</properties>
+			</configuration>
+			<handler-class>
+				org.athento.nuxeo.ui.widget.CurrencyWidgetTypeHandler
+			</handler-class>
+		</widgetType>
+
+	</extension>
+	
+</component>	
