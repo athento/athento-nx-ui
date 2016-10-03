@@ -44,7 +44,7 @@
 				</fields>
 				<properties>
 					<layouts mode="view">
-						<layout name="int_widget_type_properties_view">
+						<layout name="currency_widget_type_properties_view">
 							<rows>
 								<row>
 									<widget category="widgetTypeConf">style</widget>
@@ -64,11 +64,14 @@
                                 <row>
                                     <widget category="widgetTypeConf">currencySymbol</widget>
                                 </row>
+								<row>
+									<widget category="widgetTypeConf">minFractionDigits</widget>
+								</row>
 							</rows>
 						</layout>
 					</layouts>
 					<layouts mode="edit">
-						<layout name="int_widget_type_properties_edit">
+						<layout name="currency_widget_type_properties_edit">
 							<rows>
 								<row>
 									<widget category="widgetTypeConf">required</widget>

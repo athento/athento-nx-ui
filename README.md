@@ -57,3 +57,27 @@ You can find install and quickstart information here: https://github.com/coolwan
                 apt-get -f install
  - Install local package
                 dpkg -i fontforge_20120731.b-7.1_i386.deb
+                
+                
+## Layouts y widgets
+
+### Currency widget type
+
+Example:
+
+```xml
+<widget name="costeabogado" type="currency">
+    <labels>
+        <label mode="any">label.FCC.Costeabogado</label>
+    </labels>
+    <translated>true</translated>
+    <fields>
+        <field>Expediente:costeabogado</field>
+    </fields>
+    <properties widgetMode="view">
+        <property name="type">currency</property>
+        <property name="minFractionDigits">2</property>
+        <property name="currencySymbol">€</property>
+    </properties>
+</widget>
+```
