@@ -66,13 +66,13 @@ You can find install and quickstart information here: https://github.com/coolwan
 Example:
 
 ```xml
-<widget name="costeabogado" type="currency">
+<widget name="totalAmount" type="currency">
     <labels>
-        <label mode="any">label.FCC.Costeabogado</label>
+        <label mode="any">label.total.amount</label>
     </labels>
     <translated>true</translated>
     <fields>
-        <field>Expediente:costeabogado</field>
+        <field>contable:totalamount</field>
     </fields>
     <properties widgetMode="view">
         <property name="type">currency</property>
