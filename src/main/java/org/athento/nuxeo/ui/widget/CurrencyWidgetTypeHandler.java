@@ -75,6 +75,13 @@ public class CurrencyWidgetTypeHandler extends AbstractWidgetTypeHandler {
                     widgetTagConfigId, msgId, widgetId, null);
             FaceletHandler[] handlers = { output, message };
             return new CompositeFaceletHandler(handlers);
+        } else if (BuiltinWidgetModes.CSV.equals(mode)) {
+            // default on text without any converter to ease format
+            // configuration
+            ComponentHandler output = helper.getHtmlComponentHandler(
+                    widgetTagConfigId, attributes, leaf,
+                    HtmlOutputText.COMPONENT_TYPE, null);
+            return output;
         }
         return leaf;
     }
