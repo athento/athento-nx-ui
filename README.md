@@ -30,6 +30,8 @@ where:
 
 You can find install and quickstart information here: https://github.com/coolwanglu/pdf2htmlEX
 
+Use the pdf2htmlEX.sh script to maek a complete install, and later:
+
 - In your OS X: You need to set the config fonts with
 
         export FONTCONFIG_PATH=/opt/X11/lib/X11/fontconfig
@@ -46,7 +48,6 @@ You can find install and quickstart information here: https://github.com/coolwan
 
                 apt-get update
                 apt-get install libfontforge-dev 
-                apt-get install pdf2htmlex
 
 - In Ubuntu (16.04 xenial):
  - Download distribution from http://launchpadlibrarian.net/233283831/fontforge_20120731.b-7.1_i386.deb
