@@ -30,7 +30,7 @@ where:
 
 You can find install and quickstart information here: https://github.com/coolwanglu/pdf2htmlEX
 
-Use the pdf2htmlEX.sh script to maek a complete install, and later:
+Use the ```pdf2htmlEX.sh``` script to make a full installation, and later:
 
 - In your OS X: You need to set the config fonts with
 
