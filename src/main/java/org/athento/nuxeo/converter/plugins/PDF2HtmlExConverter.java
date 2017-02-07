@@ -54,8 +54,8 @@ public class PDF2HtmlExConverter extends CommandLineBasedConverter {
     @Override
     protected BlobHolder buildResult(List<String> cmdOutput,
                                      CmdParameters cmdParams) {
-        String outputPath = cmdParams.getParameters().get("outDirPath");
-        File outputDir = new File(outputPath);
+        CmdParameters.ParameterValue outputPath = cmdParams.getParameters().get("outDirPath");
+        File outputDir = new File(outputPath.getValue());
         File[] files = outputDir.listFiles();
         List<Blob> blobs = new ArrayList<Blob>();
         if (files.length > 0) {
@@ -94,7 +94,9 @@ public class PDF2HtmlExConverter extends CommandLineBasedConverter {
         }
         cmdStringParams.put("outDirPath", outDir.getAbsolutePath());
         cmdStringParams.put("zoom", Framework.getProperty("pdf2htmlex.zoom", "1.3"));
-        LOG.info("outDir=" + outDir.getAbsolutePath() + " " + cmdStringParams);
+        if (LOG.isInfoEnabled()) {
+            LOG.info("outDir=" + outDir.getAbsolutePath() + " " + cmdStringParams);
+        }
         return cmdStringParams;
     }
 

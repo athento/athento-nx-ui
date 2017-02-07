@@ -2,7 +2,9 @@ Manifest-Version: 1.0
 Bundle-SymbolicName: athento-nx-ui
 Bundle-Version: 1.1.0
 Bundle-Name: Athento NX User Interface
-Require-Bundle: org.nuxeo.runtime
+Require-Bundle: org.nuxeo.runtime,
+ easyshare,
+ studio.extensions.easyshare
 Bundle-ManifestVersion: 2
 Bundle-Vendor: Athento
 Nuxeo-WebModule: org.nuxeo.ecm.webengine.app.WebEngineModule;name=inviteAthento;extends=invite;headless=true
