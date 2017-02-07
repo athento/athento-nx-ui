@@ -4,7 +4,9 @@ Bundle-Version: 1.1.0
 Bundle-Name: Athento NX User Interface
 Require-Bundle: org.nuxeo.runtime,
  easyshare,
- studio.extensions.easyshare
+ studio.extensions.easyshare,
+ org.nuxeo.ecm.platform.picture.jsf,
+ org.nuxeo.ecm.platform.video.core
 Bundle-ManifestVersion: 2
 Bundle-Vendor: Athento
 Nuxeo-WebModule: org.nuxeo.ecm.webengine.app.WebEngineModule;name=inviteAthento;extends=invite;headless=true
@@ -18,5 +20,6 @@ Nuxeo-Component: OSGI-INF/Document-Model/Schemas/schemas-contrib.xml,
  OSGI-INF/Converter/convert-contrib.xml,
  OSGI-INF/CommandLine/commandline-pdf2htmlex-contrib.xml,
  OSGI-INF/user-registration-contrib.xml,
- OSGI-INF/Widgets/widgets-contrib.xml
+ OSGI-INF/Widgets/widgets-contrib.xml,
+ OSGI-INF/actions-contrib.xml
 Created-By: Athento

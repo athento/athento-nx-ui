@@ -3,8 +3,9 @@
 <!-- Generated with Athento Rhombus at 2016-05-19T16:13:32Z -->
 <component name="org.athento.athento-nx-ui.LayoutsContrib"
 	version="1.0.0">
-	
-	<require>org.nuxeo.runtime.started</require>
+
+    <require>org.nuxeo.ecm.platform.picture.jsf.layouts</require>
+	<require>org.nuxeo.ecm.platform.video.layouts</require>
 	
 	<extension target="org.nuxeo.ecm.platform.forms.layout.WebLayoutManager"
 		point="layouts">
