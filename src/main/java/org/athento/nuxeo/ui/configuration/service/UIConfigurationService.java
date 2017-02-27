@@ -38,16 +38,19 @@ public class UIConfigurationService extends DefaultComponent implements UIConfig
         }
         new UnrestrictedSessionRunner(session) {
             @Override
-            public void run() throws ClientException {
+            public void run() {
                 // Get document with ui-configuration
                 loadUIConfigurationDocument(session);
 
+                DocumentModel configDoc = session.getDocument(configUIDoc.getRef());
+
                 // Columns configuration
                 List<Map<String, Serializable>> allColumnsConfiguration =
-                        (List<Map<String, Serializable>>) configUIDoc.getProperty("cvconfig", "contentView");
+                        (List<Map<String, Serializable>>) configDoc.getProperty("cvconfig", "contentView");
+
 
                 // Get columns config for the user
-                Map<String, Serializable> columnsConfig = getUserConfiguration(configUIDoc, user, contentView);
+                Map<String, Serializable> columnsConfig = getUserConfiguration(configDoc, user, contentView);
 
                 if (columnsConfig == null) {
                     // Add new columns configuration for the user
@@ -64,10 +67,10 @@ public class UIConfigurationService extends DefaultComponent implements UIConfig
                     allColumnsConfiguration.add(columnsConfig);
                 }
 
-                configUIDoc.setProperty("cvconfig", "contentView", allColumnsConfiguration);
+                configDoc.setProperty("cvconfig", "contentView", allColumnsConfiguration);
 
                 // Save document
-                session.saveDocument(configUIDoc);
+                session.saveDocument(configDoc);
             }
         }.runUnrestricted();
 
@@ -142,6 +145,7 @@ public class UIConfigurationService extends DefaultComponent implements UIConfig
      * @return
      */
     private Map<String, Serializable> getUserConfiguration(DocumentModel configUIDoc, String user, String contentViewName) {
+
         // Get content view columns
         List<Map<String, Serializable>> configColumns =
                 (List<Map<String, Serializable>>) configUIDoc.getProperty("cvconfig", "contentView");
@@ -164,15 +168,26 @@ public class UIConfigurationService extends DefaultComponent implements UIConfig
      * @return
      */
     @Override
-    public String[] getContentViewColumns(CoreSession session, String contentView, String user) {
+    public String[] getContentViewColumns(CoreSession session, final String contentView, final String user) {
+        final List<String []> columnNames = new ArrayList<>();
         // Get configuration-ui document
         loadUIConfigurationDocument(session);
-        // Return columns
-        Map<String, Serializable> columnsConfig = getUserConfiguration(configUIDoc, user, contentView);
-        if (columnsConfig != null) {
-            return (String[]) columnsConfig.get("columnNames");
+        new UnrestrictedSessionRunner(session) {
+            @Override
+            public void run() {
+                DocumentModel configDoc = session.getDocument(configUIDoc.getRef());
+                // Return columns
+                Map<String, Serializable> columnsConfig = getUserConfiguration(configDoc, user, contentView);
+                if (columnsConfig != null) {
+                    columnNames.add((String []) columnsConfig.get("columnNames"));
+                }
+            }
+        }.runUnrestricted();
+        if (columnNames.size() > 0) {
+            return columnNames.get(0);
+        } else {
+            return new String[0];
         }
-        return new String[0];
     }
 
 
