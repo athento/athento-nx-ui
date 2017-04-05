@@ -6,7 +6,7 @@
 
     <groupId>org.athento.nuxeo</groupId>
     <artifactId>athento-nx-ui</artifactId>
-    <version>1.5-SNAPSHOT</version>
+    <version>1.6-SNAPSHOT</version>
     <name>athento-nx-ui</name>
     <description>Athento NX UI Components and configuration</description>
 
@@ -181,11 +181,14 @@
     </dependencies>
 
     <repositories>
+        
+        
+        
+        
+        
         <repository>
             <id>public</id>
-            <name>Nuxeo Public</name>
-            <url>https://maven.nuxeo.org/nexus/content/repositories/public</url>
-            <layout>default</layout>
+            <url>https://maven-eu.nuxeo.org/nexus/content/repositories/public</url>
             <releases>
                 <enabled>true</enabled>
             </releases>
@@ -195,21 +198,18 @@
         </repository>
         <repository>
             <id>public-snapshot</id>
-            <name>Nuxeo Public SNAPSHOT</name>
-            <url>https://maven.nuxeo.org/nexus/content/repositories/public-snapshots</url>
-            <layout>default</layout>
+            <url>http://maven.nuxeo.org/nexus/content/groups/public-snapshot</url>
             <releases>
                 <enabled>false</enabled>
             </releases>
             <snapshots>
+                <updatePolicy>always</updatePolicy>
                 <enabled>true</enabled>
             </snapshots>
         </repository>
         <repository>
             <id>athento-public</id>
-            <name>Athento Releases</name>
             <url>http://maven2.yerbabuena.es/artifactory/athento-public</url>
-            <layout>default</layout>
             <releases>
                 <enabled>true</enabled>
             </releases>
@@ -219,9 +219,7 @@
         </repository>
         <repository>
             <id>athento-public-snapshots</id>
-            <name>Athento Artifact Snapshots</name>
-            <url>http://maven2.yerbabuena.es/artifactory/athento-public-snapshot</url>
-            <layout>default</layout>
+            <url>http://maven2.yerbabuena.es/artifactory/athento-public-snapshots</url>
             <releases>
                 <enabled>false</enabled>
             </releases>
@@ -231,9 +229,7 @@
         </repository>
         <repository>
             <id>athento-libs-releases</id>
-            <name></name>
-            <url>http://maven2.yerbabuena.es/artifactory/libs-releases</url>
-            <layout>default</layout>
+            <url>http://maven2.yerbabuena.es/artifactory/libs-releases-local</url>
             <releases>
                 <enabled>true</enabled>
             </releases>
@@ -241,7 +237,58 @@
                 <enabled>false</enabled>
             </snapshots>
         </repository>
+        <repository>
+            <id>nuxeo-studio</id>
+            <url>https://connect.nuxeo.com/nuxeo/site/studio/maven</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
     </repositories>
+    
+    <pluginRepositories>
+            <pluginRepository>
+            <id>public</id>
+            <url>http://maven.nuxeo.org/nexus/content/groups/public</url>
+            <name>Nuxeo releases</name>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </pluginRepository>
+        
+        <pluginRepository>
+			<id>athento-public</id>
+			<name>Athento Releases</name>
+			<url>http://maven2.yerbabuena.es/artifactory/athento-public</url>
+			<layout>default</layout>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</pluginRepository>
+
+		<pluginRepository>
+			<id>athento-public-snapshots</id>
+			<name>Athento Artifact Snapshots</name>
+			<url>http://maven2.yerbabuena.es/artifactory/athento-public-snapshot</url>
+			<layout>default</layout>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</pluginRepository>
+		
+    </pluginRepositories>
 
     <build>
         <plugins>
