@@ -49,7 +49,7 @@ public class UserUIConfigurationBean implements UserUIConfigurationAction, Seria
     private boolean LOADED = false;
 
     /**
-     * Destroy.
+     * Update content view configuration.
      */
     @Observer("contentViewColumnsChanged")
     public void updateContentViewsConfiguration() {
@@ -57,11 +57,18 @@ public class UserUIConfigurationBean implements UserUIConfigurationAction, Seria
         Set<String> contentViewNames = contentViewService.getContentViewNames();
         for (String contentViewName : contentViewNames) {
             ContentView contentView = contentViewActions.getContentView(contentViewName);
-            List<String> columns = contentView.getCurrentResultLayoutColumns();
-            if (columns != null && !columns.isEmpty())  {
-                saveContentViewConfiguration(contentViewName,
-                        contentView.getCurrentResultLayoutColumns().toArray(new String[0]),
-                        this.currentUser.getName());
+            try {
+                if (contentView.getSearchDocumentModel() != null) {
+                    List<String> columns = contentView.getCurrentResultLayoutColumns();
+                    if (columns != null && !columns.isEmpty()) {
+                        saveContentViewConfiguration(contentViewName,
+                                contentView.getCurrentResultLayoutColumns().toArray(new String[0]),
+                                this.currentUser.getName());
+                    }
+                }
+            } catch (Exception e) {
+                LOG.error("Content view " + contentViewName
+                        + " had problems on change columns: " + e.getMessage());
             }
         }
     }
