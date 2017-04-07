@@ -8,6 +8,24 @@
             <java>${bundle.fileName}</java>
         </module>
     </extension>
+
+    <extension target="web#LISTENER">
+        <listener>
+            <listener-class>
+                org.athento.nuxeo.jsflistener.Jsflistener
+            </listener-class>
+        </listener>
+    </extension>
+
+    <extension target="faces-config#CONVERTER">
+        <converter>
+            <converter-id>AthentoNumberConverter</converter-id>
+            <converter-class>
+                org.athento.nuxeo.converter.AthentoNumberConverter
+            </converter-class>
+        </converter>
+    </extension>
+
     <require>all</require>
     <install>
         <delete path="${bundle.fileName}.tmp"/>

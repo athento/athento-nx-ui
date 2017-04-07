@@ -32,8 +32,8 @@
 					<mode>view</mode>
 				</supportedModes>
 				<fields>
-					<list>false</list>
-					<complex>false</complex>
+					<list>true</list>
+					<complex>true</complex>
 					<supportedTypes>
 						<type>float</type>
 						<type>double</type>
@@ -66,6 +66,9 @@
                                 </row>
 								<row>
 									<widget category="widgetTypeConf">minFractionDigits</widget>
+								</row>
+								<row>
+									<widget category="widgetTypeConf">locale</widget>
 								</row>
 							</rows>
 						</layout>
@@ -114,6 +117,21 @@
 								</row>
 								<row>
 									<widget category="widgetTypeConf">valueChangeListener</widget>
+								</row>
+								<row>
+									<widget category="widgetTypeConf">type</widget>
+								</row>
+								<row>
+									<widget category="widgetTypeConf">pattern</widget>
+								</row>
+								<row>
+									<widget category="widgetTypeConf">currencySymbol</widget>
+								</row>
+								<row>
+									<widget category="widgetTypeConf">minFractionDigits</widget>
+								</row>
+								<row>
+									<widget category="widgetTypeConf">locale</widget>
 								</row>
 							</rows>
 						</layout>

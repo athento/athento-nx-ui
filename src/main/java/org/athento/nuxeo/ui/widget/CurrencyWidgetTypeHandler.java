@@ -4,6 +4,7 @@ import com.sun.faces.facelets.tag.TagAttributesImpl;
 import com.sun.faces.facelets.tag.jsf.core.ConvertNumberHandler;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.athento.nuxeo.converter.AthentoNumberConverter;
 import org.nuxeo.ecm.platform.forms.layout.api.BuiltinWidgetModes;
 import org.nuxeo.ecm.platform.forms.layout.api.Widget;
 import org.nuxeo.ecm.platform.forms.layout.api.exceptions.WidgetException;
@@ -50,7 +51,7 @@ public class CurrencyWidgetTypeHandler extends AbstractWidgetTypeHandler {
             ConverterConfig convertConfig = TagConfigFactory.createConverterConfig(
                     tagConfig, widget.getTagConfigId(), new TagAttributesImpl(
                             new TagAttribute[0]), leaf,
-                    DoubleConverter.CONVERTER_ID);
+                    AthentoNumberConverter.CONVERTER_ID);
             ConverterHandler convert = new ConverterHandler(convertConfig);
             ComponentHandler input = helper.getHtmlComponentHandler(
                     widgetTagConfigId, attributes, convert,
