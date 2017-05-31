@@ -82,3 +82,7 @@ Example:
     </properties>
 </widget>
 ```
+
+### Workflow History tab
+
+You can find the new Workflow History tab with the information about document workflow steps.
