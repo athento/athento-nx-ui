@@ -11,16 +11,18 @@ import org.nuxeo.ecm.platform.forms.layout.facelets.FaceletHandlerHelper;
 import org.nuxeo.ecm.platform.forms.layout.facelets.plugins.AbstractWidgetTypeHandler;
 import org.nuxeo.ecm.platform.ui.web.tag.handler.TagConfigFactory;
 
-import javax.faces.component.html.HtmlInputSecret;
+import javax.faces.component.UIComponent;
 import javax.faces.component.html.HtmlInputText;
 import javax.faces.component.html.HtmlOutputText;
 import javax.faces.convert.DoubleConverter;
 import javax.faces.convert.NumberConverter;
 import javax.faces.view.facelets.*;
+import java.io.IOException;
 
 /**
  * Currency widget.
  *
+ * @since 2.0 for NX 8.10+
  * @author <a href="vs@athento.com">Victor Sanchez</a>
  */
 public class CurrencyWidgetTypeHandler extends AbstractWidgetTypeHandler {
@@ -29,11 +31,13 @@ public class CurrencyWidgetTypeHandler extends AbstractWidgetTypeHandler {
 
     private static final Log LOG = LogFactory.getLog(CurrencyWidgetTypeHandler.class);
 
+    public CurrencyWidgetTypeHandler(TagConfig config) {
+        super(config);
+    }
+
     @Override
-    public FaceletHandler getFaceletHandler(FaceletContext ctx,
-                                            TagConfig tagConfig, Widget widget, FaceletHandler[] subHandlers)
-            throws WidgetException {
-        FaceletHandlerHelper helper = new FaceletHandlerHelper(ctx, tagConfig);
+    public void apply(FaceletContext ctx, UIComponent parent, Widget widget) throws WidgetException, IOException {
+        FaceletHandlerHelper helper = new FaceletHandlerHelper(tagConfig);
         String mode = widget.getMode();
         String widgetId = widget.getId();
         String widgetName = widget.getName();
@@ -45,7 +49,7 @@ public class CurrencyWidgetTypeHandler extends AbstractWidgetTypeHandler {
             attributes = helper.getTagAttributes(widgetId, widget);
         }
         FaceletHandler leaf = getNextHandler(ctx, tagConfig, widget,
-                subHandlers, helper);
+                null, helper);
         if (BuiltinWidgetModes.EDIT.equals(mode)) {
             ConverterConfig convertConfig = TagConfigFactory.createConverterConfig(
                     tagConfig, widget.getTagConfigId(), new TagAttributesImpl(
@@ -55,11 +59,12 @@ public class CurrencyWidgetTypeHandler extends AbstractWidgetTypeHandler {
             ComponentHandler input = helper.getHtmlComponentHandler(
                     widgetTagConfigId, attributes, convert,
                     HtmlInputText.COMPONENT_TYPE, null);
-            String msgId = helper.generateMessageId(widgetName);
+            String msgId = FaceletHandlerHelper.generateMessageId(ctx, widgetName);
             ComponentHandler message = helper.getMessageComponentHandler(
                     widgetTagConfigId, msgId, widgetId, null);
             FaceletHandler[] handlers = { input, message };
-            return new CompositeFaceletHandler(handlers);
+            FaceletHandler h = new CompositeFaceletHandler(handlers);
+            h.apply(ctx, parent);
         } else if (BuiltinWidgetModes.VIEW.equals(mode)) {
             ConverterConfig convertConfig = TagConfigFactory.createConverterConfig(
                     tagConfig, widget.getTagConfigId(), attributes, leaf,
@@ -70,19 +75,19 @@ public class CurrencyWidgetTypeHandler extends AbstractWidgetTypeHandler {
             ComponentHandler output = helper.getHtmlComponentHandler(
                     widgetTagConfigId, attributes, nextHandler,
                     HtmlOutputText.COMPONENT_TYPE, null);
-            String msgId = helper.generateMessageId(widgetName);
+            String msgId = FaceletHandlerHelper.generateMessageId(ctx, widgetName);
             ComponentHandler message = helper.getMessageComponentHandler(
                     widgetTagConfigId, msgId, widgetId, null);
             FaceletHandler[] handlers = { output, message };
-            return new CompositeFaceletHandler(handlers);
+            FaceletHandler h = new CompositeFaceletHandler(handlers);
+            h.apply(ctx, parent);
         } else if (BuiltinWidgetModes.CSV.equals(mode)) {
             // default on text without any converter to ease format
             // configuration
             ComponentHandler output = helper.getHtmlComponentHandler(
                     widgetTagConfigId, attributes, leaf,
                     HtmlOutputText.COMPONENT_TYPE, null);
-            return output;
+            output.apply(ctx, parent);
         }
-        return leaf;
     }
 }

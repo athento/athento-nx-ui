@@ -245,7 +245,7 @@ public class PreviewRestlet extends BaseNuxeoRestlet {
 
         List<Blob> previewBlobs = null;
         try {
-            if (xpath.equals(PreviewHelper.PREVIEWURL_DEFAULTXPATH)) {
+            if (xpath.equals("default")) {
                 previewBlobs = preview.getFilePreviewBlobs(blobPostProcessing);
             } else {
                 previewBlobs = preview.getFilePreviewBlobs(xpath,

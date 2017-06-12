@@ -125,6 +125,102 @@
 			</handler-class>
 		</widgetType>
 
+		<widgetType name="booleanWithIcon">
+			<configuration>
+				<title>Boolean fontawesome checkbox</title>
+				<description>
+					<p>
+						The checkbox widget displays a checkbox in create, edit and any
+						other mode, with additional message tag for errors.
+					</p>
+					<p>
+						Widgets using this type can provide properties accepted on a
+						&lt;h:selectBooleanCheckbox /&gt; tag in create, edit mode, and
+						other modes.
+					</p>
+				</description>
+				<categories>
+					<category>document</category>
+				</categories>
+				<supportedModes>
+					<mode>edit</mode>
+					<mode>view</mode>
+				</supportedModes>
+				<fields>
+					<list>false</list>
+					<complex>false</complex>
+					<supportedTypes>
+						<type>boolean</type>
+					</supportedTypes>
+					<defaultTypes>
+						<type>boolean</type>
+					</defaultTypes>
+				</fields>
+				<properties>
+					<layouts mode="view">
+						<layout name="checkbox_with_icon_widget_type_properties_view">
+							<rows>
+								<row>
+									<widget category="widgetTypeConf">style</widget>
+								</row>
+								<row>
+									<widget category="widgetTypeConf">styleClass</widget>
+								</row>
+								<row>
+									<widget category="widgetTypeConf">title</widget>
+								</row>
+                                <row>
+                                    <widget category="widgetTypeConf">icon</widget>
+                                </row>
+							</rows>
+						</layout>
+					</layouts>
+					<layouts mode="edit">
+						<layout name="checkbox_with_icon_widget_type_properties_edit">
+							<rows>
+								<row>
+									<widget category="widgetTypeConf">required</widget>
+								</row>
+								<row>
+									<widget category="widgetTypeConf">style</widget>
+								</row>
+								<row>
+									<widget category="widgetTypeConf">styleClass</widget>
+								</row>
+								<row>
+									<widget category="widgetTypeConf">title</widget>
+								</row>
+								<row>
+									<widget category="widgetTypeConf">accesskey</widget>
+								</row>
+								<row>
+									<widget category="widgetTypeConf">dir</widget>
+								</row>
+								<row>
+									<widget category="widgetTypeConf">disabled</widget>
+								</row>
+								<row>
+									<widget category="widgetTypeConf">immediate</widget>
+								</row>
+								<row>
+									<widget category="widgetTypeConf">lang</widget>
+								</row>
+								<row>
+									<widget category="widgetTypeConf">validator</widget>
+								</row>
+								<row>
+									<widget category="widgetTypeConf">valueChangeListener</widget>
+								</row>
+							</rows>
+						</layout>
+					</layouts>
+				</properties>
+			</configuration>
+			<handler-class>
+                org.athento.nuxeo.ui.widget.BooleanWithIconWidgetTypeHandler
+            </handler-class>
+		</widgetType>
+
 	</extension>
 	
 </component>	

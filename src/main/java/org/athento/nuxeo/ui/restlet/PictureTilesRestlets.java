@@ -37,8 +37,8 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author tiry
  * @contributor athento
  */
-@Name("athentoTilesRestlet")
-@Scope(ScopeType.EVENT)
+//@Name("athentoTilesRestlet")
+//@Scope(ScopeType.EVENT)
 public class PictureTilesRestlets extends BaseStatelessNuxeoRestlet {
 
     private static final Log LOG = LogFactory.getLog(PictureTilesRestlets.class);
