@@ -6,6 +6,35 @@
 	<require>org.nuxeo.runtime.started</require>
 
 	<extension target="org.nuxeo.ecm.platform.forms.layout.WebLayoutManager"
+			   point="widgets">
+
+		<widget name="dashboard_top" type="documentActions">
+			<labels>
+				<label mode="any"></label>
+			</labels>
+			<properties widgetMode="any">
+				<property name="category">DASHBOARD_TOP</property>
+			</properties>
+			<controls mode="any">
+				<control name="gridStyleClass">gridStyle12</control>
+			</controls>
+		</widget>
+
+		<widget name="dashboard_bottom" type="documentActions">
+			<labels>
+				<label mode="any"></label>
+			</labels>
+			<properties widgetMode="any">
+				<property name="category">DASHBOARD_BOTTOM</property>
+			</properties>
+			<controls mode="any">
+				<control name="gridStyleClass">gridStyle12</control>
+			</controls>
+		</widget>
+
+	</extension>
+
+	<extension target="org.nuxeo.ecm.platform.forms.layout.WebLayoutManager"
 			   point="widgettypes">
 
 		<widgetType name="currency">
