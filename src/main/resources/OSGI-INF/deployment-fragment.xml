@@ -3,6 +3,14 @@
 
     <require>all</require>
 
+    <extension target="web#LISTENER">
+        <listener>
+            <listener-class>
+                org.athento.nuxeo.jsfListener.LoggingBridgeListener
+            </listener-class>
+        </listener>
+    </extension>
+
     <extension target="application#MODULE">
         <module>
             <java>${bundle.fileName}</java>
