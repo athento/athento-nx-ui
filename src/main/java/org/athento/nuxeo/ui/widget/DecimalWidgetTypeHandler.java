@@ -54,6 +54,7 @@ public class DecimalWidgetTypeHandler extends AbstractWidgetTypeHandler {
                             new TagAttribute[0]), leaf,
                     NumberConverter.CONVERTER_ID);
             ConverterHandler convert = new ConverterHandler(convertConfig);
+            // Remove pattern attribute
             ComponentHandler input = helper.getHtmlComponentHandler(
                     widgetTagConfigId, attributes, convert,
                     HtmlInputText.COMPONENT_TYPE, null);
