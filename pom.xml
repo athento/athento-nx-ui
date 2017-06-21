@@ -315,6 +315,7 @@
 
     <properties>
         <nuxeo.platform.version>7.10</nuxeo.platform.version>
+        <slf4j.version>1.7.7</slf4j.version>
     </properties>
 </project>
 

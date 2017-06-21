@@ -1,11 +1,14 @@
 package org.athento.nuxeo.jsfListener;
 
+import org.slf4j.bridge.SLF4JBridgeHandler;
+
 import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
 
 /**
  * Loggin bridge to pass logger to Log4j.
  */
-public class LoggingBridgeListener {
+public class LoggingBridgeListener implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent arg) {
@@ -19,8 +22,7 @@ public class LoggingBridgeListener {
 
     @Override
     public void contextDestroyed(ServletContextEvent arg) {
-        System.out.println("contextDestroyed....");
-
+        // NOTHING TO DO
     }
 
 
