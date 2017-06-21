@@ -178,11 +178,6 @@
     </dependencies>
 
     <repositories>
-        
-        
-        
-        
-        
         <repository>
             <id>public</id>
             <url>https://maven-eu.nuxeo.org/nexus/content/repositories/public</url>
