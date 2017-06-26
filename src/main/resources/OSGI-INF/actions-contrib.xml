@@ -20,5 +20,18 @@
             <filter-id>hasVideo</filter-id>
         </action>
 
+        <action icon="/icons/contextual_menu/preview.png" id="showFancyBoxPreview" label="label.document.preview" order="0" type="fancybox">
+            <category>DOCUMENT_UPPER_ACTION</category>
+            <filter-id>view_preview</filter-id>
+            <filter-id>not_folder</filter-id>
+            <filter-id>not_anonymous</filter-id>
+            <properties>
+                <property name="iframe">
+                    #{previewActions.getCurrentDocumentPreviewPopupURL()}
+                </property>
+                <property name="ajaxSupport">true</property>
+            </properties>
+        </action>
+
     </extension>
 </component>
