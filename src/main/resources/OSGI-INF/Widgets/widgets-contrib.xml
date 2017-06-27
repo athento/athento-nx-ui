@@ -141,6 +141,12 @@
 								<row>
 									<widget category="widgetTypeConf">valueChangeListener</widget>
 								</row>
+                                <row>
+                                    <widget category="widgetTypeConf">pattern</widget>
+                                </row>
+                                <row>
+                                    <widget category="widgetTypeConf">locale</widget>
+                                </row>
 							</rows>
 						</layout>
 					</layouts>
