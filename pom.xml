@@ -15,7 +15,7 @@
         <url>http://www.yerbabuena.es</url>
     </organization>
 
-    <inceptionYear>2016</inceptionYear>
+    <inceptionYear>2017</inceptionYear>
 
     <developers>
         <developer>
@@ -339,6 +339,7 @@
     <properties>
         <nuxeo.platform.version>8.10</nuxeo.platform.version>
     </properties>
+
 </project>
 
 
