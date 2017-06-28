@@ -9,7 +9,11 @@
             <properties>
                 <property name="widgetName">summary_current_document_view</property>
             </properties>
-            <filter-id>hasPicture</filter-id>
+            <filter id="hasPicture">
+                <rule grant="true">
+                    <facet>Picture</facet>
+                </rule>
+            </filter>
         </action>
 
         <action id="summary_video_custom_metadata" type="widget" order="150">
@@ -17,7 +21,11 @@
             <properties>
                 <property name="widgetName">summary_current_document_view</property>
             </properties>
-            <filter-id>hasVideo</filter-id>
+            <filter id="hasVideo">
+                <rule grant="true">
+                    <facet>Video</facet>
+                </rule>
+            </filter>
         </action>
 
         <action icon="/icons/contextual_menu/preview.png" id="showFancyBoxPreview" label="label.document.preview" order="0" type="fancybox">
