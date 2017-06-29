@@ -216,6 +216,17 @@
     </dependencies>
 
     <repositories>
+         <repository>
+            <id>athento-private</id>
+            <name>Athento Private</name>
+            <url>http://maven2.yerbabuena.es/artifactory/athento-private</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
         <repository>
             <id>public</id>
             <name>Nuxeo Public</name>
@@ -331,6 +342,48 @@
             </plugin>
         </plugins>
     </build>
+
+	<pluginRepositories>
+
+		<pluginRepository>
+			<id>public</id>
+			<url>http://maven.nuxeo.org/nexus/content/groups/public</url>
+			<name>Nuxeo releases</name>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</pluginRepository>
+
+		<pluginRepository>
+			<id>athento-public</id>
+			<name>Athento Releases</name>
+			<url>http://maven2.yerbabuena.es/artifactory/athento-public</url>
+			<layout>default</layout>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</pluginRepository>
+
+		<pluginRepository>
+			<id>athento-public-snapshots</id>
+			<name>Athento Artifact Snapshots</name>
+			<url>http://maven2.yerbabuena.es/artifactory/athento-public-snapshot</url>
+			<layout>default</layout>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</pluginRepository>
+
+	</pluginRepositories>
 
     <properties>
         <nuxeo.platform.version>7.10</nuxeo.platform.version>
