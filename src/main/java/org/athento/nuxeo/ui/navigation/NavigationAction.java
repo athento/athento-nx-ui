@@ -1,7 +1,7 @@
 package org.athento.nuxeo.ui.navigation;
 
 /**
- * Created by victorsanchez on 19/05/16.
+ * Navigation actions wrap interface.
  */
 public interface NavigationAction {
 
@@ -11,18 +11,18 @@ public interface NavigationAction {
     void gotoPage(long page, String contentView);
 
     /**
-     * Get current page.
+     * Refresh page.
      *
-     * @return
+     * @param contentView
      */
-    long getCurrentPage();
+    void refreshPage(String contentView);
 
     /**
      * Get current page.
      *
      * @return
      */
-    long getCurrentPage(String contentView);
+    long getCurrentPage();
 
     /**
      * Set current page.
@@ -38,8 +38,5 @@ public interface NavigationAction {
     void last(String contentView);
 
     void rewind(String contentView);
-
-    void setCurrentContentView(String contentView);
-
 
 }

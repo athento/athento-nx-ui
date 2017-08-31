@@ -37,7 +37,7 @@
                 <h:panelGroup styleClass="currentPageStatus">
                     <h:inputText styleClass="#{contentViewName}_idx_currentPage" value="#{navigationAction.currentPage}"
                                  style="width: 42px; margin-top: -3px; margin-right: 8px;">
-                        <a4j:ajax render="@form" execute="@this" listener="#{navigationAction.setCurrentContentView(contentViewName)}"/>
+                        <a4j:ajax render="@form" execute="@this" listener="#{navigationAction.refreshPage(contentViewName)}"/>
                     </h:inputText>
                     <h:outputText style="margin: -3px; margin-right: 3px;" value="/ #{provider.getNumberOfPages()}" rendered="#{provider.getNumberOfPages() gt 0}"/>
                 </h:panelGroup>

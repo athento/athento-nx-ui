@@ -13,6 +13,7 @@ import org.nuxeo.ecm.platform.contentview.jsf.ContentView;
 import org.nuxeo.ecm.platform.contentview.jsf.ContentViewService;
 import org.nuxeo.ecm.platform.contentview.seam.ContentViewActions;
 import org.nuxeo.ecm.platform.query.api.PageProvider;
+import org.nuxeo.ecm.platform.ui.web.util.SeamComponentCallHelper;
 import org.nuxeo.ecm.webapp.helpers.EventNames;
 import org.nuxeo.runtime.api.Framework;
 
@@ -26,7 +27,7 @@ import static org.jboss.seam.ScopeType.SESSION;
  * Navigation action.
  */
 @Name("navigationAction")
-@Scope(ScopeType.CONVERSATION)
+@Scope(ScopeType.EVENT)
 public class NavigationActionBean implements NavigationAction, Serializable {
 
     /**
@@ -34,23 +35,24 @@ public class NavigationActionBean implements NavigationAction, Serializable {
      */
     private static final Log LOG = LogFactory.getLog(NavigationActionBean.class);
 
-    @In(create = true)
-    protected transient ContentViewActions contentViewActions;
+    @In
+    protected ContentViewActions contentViewActions;
 
-    private long currentPage;
-
-    private Map<String, Long> indexes = new HashMap<String, Long>();
+    private long currentPage = 0L;
 
     /**
      * Goto page.
      */
     @Override
     public void gotoPage(long page, String contentView) {
-        PageProvider<?> provider = this.contentViewActions.getContentViewWithProvider(contentView)
+        this.currentPage = page - 1;
+        PageProvider<?> provider = contentViewActions.getContentViewWithProvider(contentView)
                 .getPageProvider();
-        provider.setCurrentPageIndex(page - 1);
+        provider.setCurrentPageIndex(getCurrentPage());
         this.currentPage = provider.getCurrentPageIndex();
-        this.indexes.put(contentView, this.currentPage);
+        if (this.currentPage > provider.getNumberOfPages() - 1) {
+            this.currentPage = provider.getNumberOfPages() - 1;
+        }
     }
 
     /**
@@ -62,19 +64,7 @@ public class NavigationActionBean implements NavigationAction, Serializable {
         if (this.currentPage < 0) {
             this.currentPage = 0;
         }
-        return this.currentPage + 1;
-    }
-
-    /**
-     * @return
-     */
-    @Override
-    public long getCurrentPage(String contentView) {
-        Long value = indexes.get(contentView);
-        if (value == null) {
-            value = 0L;
-        }
-        return value;
+        return this.currentPage;
     }
 
     /**
@@ -85,75 +75,43 @@ public class NavigationActionBean implements NavigationAction, Serializable {
         this.currentPage = currentPage;
     }
 
-    @Override
-    public void setCurrentContentView(String contentView) {
-        this.gotoPage(this.currentPage, contentView);
+    /**
+     * Refresh page.
+     */
+    public void refreshPage(String contentView) {
+        gotoPage(this.currentPage, contentView);
     }
 
     @Override
     public void previous(String contentView) {
-        PageProvider<?> provider = this.contentViewActions.getContentViewWithProvider(contentView)
+        PageProvider<?> provider = contentViewActions.getContentViewWithProvider(contentView)
                 .getPageProvider();
-        Long index = indexes.get(contentView);
-        if (index == null) {
-            index = 0L;
-        }
-        provider.setCurrentPageIndex(index - 1);
+        provider.previousPage();
         this.currentPage = provider.getCurrentPageIndex();
-        this.indexes.put(contentView, this.currentPage);
     }
 
     @Override
     public void next(String contentView) {
-        PageProvider<?> provider = this.contentViewActions.getContentViewWithProvider(contentView)
+        PageProvider<?> provider = contentViewActions.getContentViewWithProvider(contentView)
                 .getPageProvider();
-        Long index = indexes.get(contentView);
-        if (index == null) {
-            index = 0L;
-        }
-        provider.setCurrentPageIndex(index + 1);
+        provider.nextPage();
         this.currentPage = provider.getCurrentPageIndex();
-        this.indexes.put(contentView, this.currentPage);
-
     }
 
     @Override
     public void last(String contentView) {
-        PageProvider<?> provider = this.contentViewActions.getContentViewWithProvider(contentView)
+        PageProvider<?> provider = contentViewActions.getContentViewWithProvider(contentView)
                 .getPageProvider();
         provider.lastPage();
         this.currentPage = provider.getCurrentPageIndex();
-        this.indexes.put(contentView, this.currentPage);
 
     }
 
     @Override
     public void rewind(String contentView) {
-        PageProvider<?> provider = this.contentViewActions.getContentViewWithProvider(contentView)
+        PageProvider<?> provider = contentViewActions.getContentViewWithProvider(contentView)
                 .getPageProvider();
         provider.firstPage();
         this.currentPage = provider.getCurrentPageIndex();
-        this.indexes.put(contentView, this.currentPage);
-    }
-
-    /**
-     * Refresh indexes.
-     */
-    public void refresh(String contentView) {
-        this.indexes.remove(contentView);
-    }
-
-    /**
-     * Refresh all indexes.
-     */
-    @Observer(ContentView.CONTENT_VIEW_REFRESH_EVENT)
-    public void refreshAll() {
-        // Calculate index for each content view
-        for (String contentView : indexes.keySet()) {
-            PageProvider<?> provider = this.contentViewActions.getContentViewWithProvider(contentView)
-                    .getPageProvider();
-            provider.setCurrentPageIndex(0);
-            this.indexes.put(contentView, 0L);
-        }
     }
 }
