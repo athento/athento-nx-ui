@@ -273,7 +273,7 @@ public class PreviewRestlet extends BaseNuxeoRestlet {
 
         // Load no-templates template
         File home = Environment.getDefault().getHome();
-        FileBlob noPreviewTemplate = new FileBlob(new File(home + "/nuxeo.war/templates/no-preview.html.ftl"));
+        FileBlob noPreviewTemplate = new FileBlob(new File(home + "/nuxeo.war/templates/no-preview2.html.ftl"));
 
         Map<String, Object> params = new HashMap<>();
         for (Map.Entry<String, Object> prop : DocumentModelUtils.getProperties(targetDocument).entrySet()) {
