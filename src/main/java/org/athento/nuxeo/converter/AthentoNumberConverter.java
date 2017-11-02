@@ -12,9 +12,8 @@ import javax.faces.convert.FacesConverter;
 import static org.athento.nuxeo.converter.AthentoNumberConverter.CONVERTER_ID;
 
 /**
- * Created by JoséMaría on 07/04/2017.
+ * Converter ID.
  */
-
 @FacesConverter(CONVERTER_ID)
 public class AthentoNumberConverter extends DoubleConverter {
 

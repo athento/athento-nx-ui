@@ -18,7 +18,6 @@
         </converter>
     </extension>
 
-    <require>all</require>
     <install>
         <delete path="${bundle.fileName}.tmp"/>
         <unzip from="${bundle.fileName}" to="${bundle.fileName}.tmp"/>
