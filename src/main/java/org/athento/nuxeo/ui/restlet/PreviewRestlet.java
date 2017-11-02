@@ -51,6 +51,7 @@ import org.nuxeo.ecm.platform.util.RepositoryLocation;
 import org.nuxeo.ecm.platform.web.common.locale.LocaleProvider;
 import org.nuxeo.ecm.webapp.helpers.ResourcesAccessor;
 import org.nuxeo.runtime.api.Framework;
+import sun.security.x509.AVA;
 
 /**
  * Preview restlet with no auth. Based on PreviewRestlet.java of Nuxeo DM (c).
@@ -61,6 +62,7 @@ public class PreviewRestlet extends BaseNuxeoRestlet {
 
     private static final Log LOG = LogFactory.getLog(PreviewRestlet.class);
     private static final String TOKEN_ENDCHARS_CONTROL = "#control";
+    private static final String AVAILABLE_PREVIEW_FORMATS = "pdf, txt, rtf, doc, docx, odt, csv, ods, xls, html, ppt, odp";
 
     @In(create = true)
     protected NavigationContext navigationContext;
@@ -285,6 +287,11 @@ public class PreviewRestlet extends BaseNuxeoRestlet {
             Object value = prop.getValue();
             params.put(key.replace(".", "_"), value);
         }
+
+        // Get available preview formats
+        String availablePreviewFormats = Framework.getProperty("athento.preview.formats", AVAILABLE_PREVIEW_FORMATS.toUpperCase());
+
+        params.put("availablePreviewFormats", availablePreviewFormats);
         params.put("token", token);
 
         try {
