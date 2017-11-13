@@ -31,6 +31,16 @@
                 <urlPattern>/getTiles/{repoId}/{docId}/{tileWidth}/{tileHeight}/{maxTiles}</urlPattern>
             </urlPatterns>
         </restletPlugin>
+
+        <restletPlugin
+                name="inlineFileRestlet"
+                class="org.athento.nuxeo.ui.restlet.DocumentViewInlineRestlet"
+                enabled="true"
+                useSeam="true">
+            <urlPatterns>
+                <urlPattern>/{repo}/{docid}/inlineFile</urlPattern>
+            </urlPatterns>
+        </restletPlugin>
     </extension>
 
 </component>
