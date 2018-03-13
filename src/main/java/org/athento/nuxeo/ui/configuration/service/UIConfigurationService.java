@@ -50,7 +50,7 @@ public class UIConfigurationService extends DefaultComponent implements UIConfig
 
 
                 // Get columns config for the user
-                Map<String, Serializable> columnsConfig = getUserConfiguration(configDoc, user, contentView);
+                Map<String, Serializable> columnsConfig = getUserConfiguration(session, configDoc, user, contentView);
 
                 if (columnsConfig == null) {
                     // Add new columns configuration for the user
@@ -144,19 +144,28 @@ public class UIConfigurationService extends DefaultComponent implements UIConfig
      * @param contentViewName
      * @return
      */
-    private Map<String, Serializable> getUserConfiguration(DocumentModel configUIDoc, String user, String contentViewName) {
-
+    private Map<String, Serializable> getUserConfiguration(CoreSession session, final DocumentModel configUIDoc, final String user, final String contentViewName) {
+        final List<Map> items = new ArrayList<>();
         // Get content view columns
-        List<Map<String, Serializable>> configColumns =
-                (List<Map<String, Serializable>>) configUIDoc.getProperty("cvconfig", "contentView");
-        for (Map<String, Serializable> configItem : configColumns) {
-            String username = (String) configItem.get("username");
-            String contentView = (String) configItem.get("contentViewName");
-            if (username.equals(user) && contentView.equals(contentViewName)) {
-                return configItem;
+        new UnrestrictedSessionRunner(session) {
+            @Override
+            public void run() {
+                List<Map<String, Serializable>> configColumns =
+                        (List<Map<String, Serializable>>) configUIDoc.getProperty("cvconfig", "contentView");
+                for (Map<String, Serializable> configItem : configColumns) {
+                    String username = (String) configItem.get("username");
+                    String contentView = (String) configItem.get("contentViewName");
+                    if (username.equals(user) && contentView.equals(contentViewName)) {
+                        items.add(configItem);
+                    }
+                }
             }
+        }.runUnrestricted();
+        if (!items.isEmpty()) {
+            return items.get(0);
+        } else {
+            return null;
         }
-        return null;
     }
 
     /**
@@ -177,7 +186,7 @@ public class UIConfigurationService extends DefaultComponent implements UIConfig
             public void run() {
                 DocumentModel configDoc = session.getDocument(configUIDoc.getRef());
                 // Return columns
-                Map<String, Serializable> columnsConfig = getUserConfiguration(configDoc, user, contentView);
+                Map<String, Serializable> columnsConfig = getUserConfiguration(session, configDoc, user, contentView);
                 if (columnsConfig != null) {
                     columnNames.add((String []) columnsConfig.get("columnNames"));
                 }
