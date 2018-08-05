@@ -21,5 +21,6 @@ Nuxeo-Component: OSGI-INF/Document-Model/Schemas/schemas-contrib.xml,
  OSGI-INF/CommandLine/commandline-pdf2htmlex-contrib.xml,
  OSGI-INF/user-registration-contrib.xml,
  OSGI-INF/Widgets/widgets-contrib.xml,
- OSGI-INF/actions-contrib.xml
+ OSGI-INF/actions-contrib.xml,
+ OSGI-INF/pageprovider-contrib.xml
 Created-By: Athento
