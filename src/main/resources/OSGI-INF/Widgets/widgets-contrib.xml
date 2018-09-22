@@ -32,6 +32,59 @@
 			</controls>
 		</widget>
 
+		<!-- Search -->
+
+		<widget name="qsearchPanel" type="container">
+			<properties widgetMode="view">
+				<property name="display">block_top</property>
+				<property name="hideSubLabels">true</property>
+				<property name="ajaxPanelId">qsearchPanel</property>
+			</properties>
+			<subWidgetRefs>
+				<widget>qsearchResults</widget>
+			</subWidgetRefs>
+			<controls mode="any">
+				<control name="gridStyleClass">
+					gridStyle6 nxSearchResults
+				</control>
+			</controls>
+		</widget>
+
+		<widget name="qsearchResults" type="documentActions">
+			<properties widgetMode="view">
+				<property name="category">QSEARCH_PANEL</property>
+			</properties>
+			<controls mode="any">
+				<control name="requireSurroundingForm">false</control>
+			</controls>
+		</widget>
+
+		<widget name="qsearchViewTitle" type="qsearch_view_title" />
+
+		<widget name="qsearchResultsActions" type="documentActionsWithForms">
+			<properties widgetMode="view">
+				<property name="category">QSEARCH_ACTIONS_PANEL</property>
+				<property name="styleClass">globalActionBar</property>
+				<property name="overallDisplay">horizontal_block</property>
+				<property name="actionStyleClass">button</property>
+				<property name="actionsDisplay">buttons</property>
+				<property name="useAjaxForm">true</property>
+				<property name="ignoreTemplateProperty">true</property>
+				<property name="maxActionsNumber">3</property>
+			</properties>
+		</widget>
+
+		<widget name="qsearchContentView" type="contentViewWithForms">
+			<properties widgetMode="any">
+				<property name="contentViewName">#{querySearchUIActions.contentViewName}</property>
+				<property name="showFilterForm">false</property>
+				<property name="useAjaxForm">true</property>
+				<property name="useAjaxPagination">true</property>
+				<property name="styleClass">alignL</property>
+			</properties>
+		</widget>
+
+
 	</extension>
 
 	<extension target="org.nuxeo.ecm.platform.forms.layout.WebLayoutManager"
@@ -368,6 +421,28 @@
 			<handler-class>
                 org.athento.nuxeo.ui.widget.BooleanWithIconWidgetTypeHandler
             </handler-class>
+		</widgetType>
+
+		<!-- Search -->
+		<widgetType name="qsearch_view_title">
+			<configuration>
+				<sinceVersion>7.10</sinceVersion>
+				<title>Query Search View Title</title>
+				<description>
+					<p>
+						This widget type displays the title of the search view: the title of
+						the selected saved search, or the title of the selected content view.
+					</p>
+					<p>
+					</p>
+				</description>
+			</configuration>
+			<handler-class>
+				org.nuxeo.ecm.platform.forms.layout.facelets.plugins.TemplateWidgetTypeHandler
+			</handler-class>
+			<property name="template">
+				/search/widgets/qsearch_view_title_widget_template.xhtml
+			</property>
 		</widgetType>
 
 	</extension>

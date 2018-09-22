@@ -22,5 +22,8 @@ Nuxeo-Component: OSGI-INF/Document-Model/Schemas/schemas-contrib.xml,
  OSGI-INF/user-registration-contrib.xml,
  OSGI-INF/Widgets/widgets-contrib.xml,
  OSGI-INF/actions-contrib.xml,
- OSGI-INF/pageprovider-contrib.xml
+ OSGI-INF/pageprovider-contrib.xml,
+ OSGI-INF/Listing-Views/search-contentviews-contrib.xml,
+ OSGI-INF/search-contrib.xml,
+ OSGI-INF/security-contrib.xml
 Created-By: Athento

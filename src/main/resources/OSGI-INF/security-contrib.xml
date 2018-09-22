@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<component name="org.nuxeo.athento.ui.security-contrib">
+
+  <extension
+    target="org.nuxeo.ecm.platform.ui.web.auth.service.PluggableAuthenticationService"
+    point="startURL">
+
+    <startURLPattern>
+      <patterns>
+        <pattern>nxqsearch/</pattern>
+      </patterns>
+    </startURLPattern>
+
+  </extension>
+
+</component>

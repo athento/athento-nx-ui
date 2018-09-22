@@ -16,6 +16,14 @@
             <parameter>#{currentDocument.id}</parameter>
         </coreQueryPageProvider>
 
+        <coreQueryPageProvider name="query_search">
+            <trackUsage>true</trackUsage>
+            <searchDocumentType>DefaultSearch</searchDocumentType>
+            <pattern quoteParameters="false" escapeParameters="false">?</pattern>
+            <pageSize>20</pageSize>
+            <pageSizeBinding>#{querySearchUIActions.pageSize}</pageSizeBinding>
+        </coreQueryPageProvider>
+
     </extension>
 
 </component>
