@@ -129,7 +129,12 @@ public class QuerySearchUIActions implements Serializable {
     }
 
     public String getDecodedQuery() {
-        return new String(Base64.decodeBase64(getQuery()));
+        String query = getQuery();
+        if (Base64.isBase64(query)) {
+            return new String(Base64.decodeBase64(getQuery()));
+        } else {
+            return query;
+        }
     }
 
     public String getQuery() {
