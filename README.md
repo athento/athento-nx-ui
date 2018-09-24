@@ -6,7 +6,7 @@
 
         GET /nuxeo/nxqsearch/default@qsearch?contentViewName=query_search&query=<your-nxql-query>&token=<your-token>
         
-Also, you cand find a link into NXQL search type in JSF interface with the link to QSearch view with the input query as url parameter.
+Also, you can find a link into NXQL search type in JSF interface with the link to QSearch view with the input query as url parameter.
 
 ## Save your contentView columns ##
 
