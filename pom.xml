@@ -317,7 +317,7 @@
             <plugin>
                 <groupId>org.athento.nuxeo.plugin</groupId>
                 <artifactId>athento-nx-single-addon</artifactId>
-                <version>1.0</version>
+                <version>1.2</version>
                 <configuration>
                     <name>${project.artifactId}</name>
                     <version>${project.version}</version>
