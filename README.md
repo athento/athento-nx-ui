@@ -1,5 +1,13 @@
 # Athento UI for Nuxeo #
 
+## How to show a NXQL query document result
+
+- Using QSearch (Athento Query Search) view, you can share a public link (securized by token-auth of NX) to show your query result. Use:
+
+        GET /nuxeo/nxqsearch/default@qsearch?contentViewName=query_search&query=<your-nxql-query>&token=<your-token>
+        
+Also, you cand find a link into NXQL search type in JSF interface with the link to QSearch view with the input query as url parameter.
+
 ## Save your contentView columns ##
 
 - You can select and save your favourite columns. After logout and login, you will have your selected columns again.
