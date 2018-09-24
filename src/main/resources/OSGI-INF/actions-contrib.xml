@@ -7,10 +7,11 @@
         <!-- QSearch actions -->
         <action id="qsearch" link="querysearch" label="label.main.tab.qsearch" order="60"
                 type="template">
-            <category>MAIN_TABS</category>
-            <filter-id>only_for_manager</filter-id>
+            <category>SEARCH_RESULTS_ACTIONS</category>
+            <filter-id>nxqlSearchSelected</filter-id>
             <properties>
                 <property name="template">/search/incl/action/qsearch_main_tab_action_template.xhtml</property>
+                <property name="target">_blank</property>
             </properties>
         </action>
 
@@ -93,4 +94,6 @@
         </action>
 
     </extension>
+
+
 </component>
