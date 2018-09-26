@@ -31,7 +31,6 @@
         #{restHelper.getNewDocumentView(null)}
       </newDocumentViewBinding>
       <bindings>
-        <binding name="tabIds">#{querySearchUIActions.searchMainTab}</binding>
         <binding name="language" callGetter="false">
           #{restHelper.localeString}
         </binding>
