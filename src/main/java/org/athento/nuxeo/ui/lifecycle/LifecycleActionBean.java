@@ -80,7 +80,9 @@ public class LifecycleActionBean implements LifecycleAction, Serializable {
         if (selectedTransition != null) {
             DocumentModel currentDocument = navigationContext.getCurrentDocument();
             if (currentDocument != null) {
-                LOG.info("Follow transition " + this.selectedTransition);
+                if (LOG.isDebugEnabled()) {
+                    LOG.debug("Follow transition " + this.selectedTransition);
+                }
                 currentDocument.followTransition(this.selectedTransition);
             }
         }
