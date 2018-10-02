@@ -84,6 +84,29 @@
 			</properties>
 		</widget>
 
+		<!-- Lifecycle -->
+
+		<widget name="lifecycle_widget" type="template">
+			<labels>
+				<label mode="any"></label>
+			</labels>
+			<translated>true</translated>
+			<fields>
+				<field>selectedTransition</field>
+			</fields>
+			<properties mode="any">
+				<property name="template">
+					/widgets/lifecycle_transition_widget_template.xhtml
+				</property>
+			</properties>
+			<properties widgetMode="edit">
+				<property name="cssStyleClass">dataInputText</property>
+			</properties>
+			<controls mode="any">
+				<control name="requireSurroundingForm">true</control>
+				<control name="disableMultiPartForm">true</control>
+			</controls>
+		</widget>
 
 	</extension>
 

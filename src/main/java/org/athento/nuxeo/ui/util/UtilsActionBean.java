@@ -31,16 +31,10 @@ public class UtilsActionBean implements Serializable {
      * @return
      */
     public String formatDate(Date value) {
-        LOG.info("Format " + value);
         if (value != null) {
             return new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(value);
         }
         return null;
     }
 
-
-public static void main(String [] args) {
-        UtilsActionBean uab = new UtilsActionBean();
-        System.out.println(uab.formatDate(Calendar.getInstance().getTime()));
-    }
 }
