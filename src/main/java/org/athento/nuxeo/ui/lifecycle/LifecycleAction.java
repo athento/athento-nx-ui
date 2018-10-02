@@ -11,4 +11,12 @@ public interface LifecycleAction {
      */
     void followTransition();
 
+    /**
+     * Check user in group.
+     *
+     * @param group
+     * @return
+     */
+    boolean userInGroup(String group);
+
 }

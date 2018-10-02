@@ -7,16 +7,20 @@ import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
 import org.nuxeo.ecm.core.NXCore;
+import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
+import org.nuxeo.ecm.core.api.NuxeoGroup;
 import org.nuxeo.ecm.core.lifecycle.LifeCycle;
 import org.nuxeo.ecm.core.lifecycle.LifeCycleService;
 import org.nuxeo.ecm.core.model.Document;
 import org.nuxeo.ecm.platform.ui.web.api.NavigationContext;
+import org.nuxeo.ecm.platform.usermanager.UserManager;
 import org.nuxeo.runtime.api.Framework;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Lifecycle action.
@@ -32,6 +36,9 @@ public class LifecycleActionBean implements LifecycleAction, Serializable {
 
     @In(create = true)
     protected NavigationContext navigationContext;
+
+    @In(create = true)
+    protected CoreSession documentManager;
 
     private LifeCycleService lfService = null;
 
@@ -94,5 +101,22 @@ public class LifecycleActionBean implements LifecycleAction, Serializable {
 
     public void setSelectedTransition(String selectedTransition) {
         this.selectedTransition = selectedTransition;
+    }
+
+    /**
+     * Check user is in group.
+     *
+     * @param group
+     * @return
+     */
+    public boolean userInGroup(String group) {
+        UserManager userManager = Framework.getService(UserManager.class);
+        NuxeoGroup nxGroup = userManager.getGroup(group);
+        if (nxGroup == null) {
+            return false;
+        }
+        List<String> users = userManager.getUsersInGroupAndSubGroups(group);
+        String username = documentManager.getPrincipal().getName();
+        return users.contains(username);
     }
 }
